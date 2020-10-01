@@ -1,41 +1,65 @@
-<img src="https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png" style="margin: 0;">
+# PhysRev
 
-Welcome USER_NAME,
+### **Business Goals**
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project.
+### **Customer Goals**
 
-## Gitpod Reminders
+## Table of Contents
+1. [User Design](#ux)
+2. [WireFrames](#wireframes)
+3. [Features](#features)
+4. [Technologies](#technologies-used)
+5. [Testing](#testing)
+6. [Deployment](#deployment)
+7. [Credits](#credits)
+## UX
+---
+### **Ideal User**
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+### **User Stories**
 
-`python3 -m http.server`
+### **Design Choices**
 
-A blue button should appear to click: *Make Public*,
+### **Wireframes**
 
-Another blue button should appear to click: *Open Browser*.
+## Features
+---
+### **Existing Feautres**
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+### **Differences from wireframes**
 
-A blue button should appear to click: *Make Public*,
+### **Features left to implement** 
 
-Another blue button should appear to click: *Open Browser*.
+## Technologies Used
+---
+This project used the languages Python, HTML5, javascript and CSS3.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the backend lessons.
+- [jQuery](https://jquery.com/) - The jQuery library was used on all pages.
+- [GitPod](https://gitpod.io/workspaces/) - The entire website was developed in GitPod
+- [GitHub](https://github.com/) - GitHub was used to store the project and to deploy it using the master branch on the github site
+- [Bootstrap](https://getbootstrap.com/) - The grid structure was used to structure the website and make it responsive and some default items in bootstrap were used as a starting point
+- [FontAwesome](https://fontawesome.com/) - Font Awesome was used for the social media icons
 
-## Updates Since The Instructional Video
+## Testing
+---
+### **Code Validation**
 
-We continually tweak and adjust this template to help give you the best experience. Here are the updates since the original video was made:
+### **User Story Testing**
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed along with other common files.
+### **Manual Testing**   
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+## Deployment
+---
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+## Credits
+---
+### **Code**
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+### **Media**
 
---------
+### **Infomration**
 
-Happy coding!
+### **Acknowledgements**
+- My mentor Anthony Montaro for his fantastic support and assistance.
+- The slack community for their continued support.
