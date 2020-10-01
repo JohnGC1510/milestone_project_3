@@ -24,10 +24,11 @@ of there class. The questions mark themselves and will reduce the marking load f
 1. [User Design](#ux)
 2. [WireFrames](#wireframes)
 3. [Features](#features)
-4. [Technologies](#technologies-used)
-5. [Testing](#testing)
-6. [Deployment](#deployment)
-7. [Credits](#credits)
+4. [Data Structure](#data-structure)
+5. [Technologies](#technologies-used)
+6. [Testing](#testing)
+7. [Deployment](#deployment)
+8. [Credits](#credits)
 ## UX
 ---
 ### **Ideal User**
@@ -80,6 +81,13 @@ As a general user I want:
 
 ### **Features left to implement** 
 
+## **Data Structure**
+---
+A NoSQL database was used for this project. Please see the tables below for more information on each data type and my reason for using it and my database diagram which clearly shows the relationships between my different collections. 
+### Database
+<img src="static/images/questions_data.PNG" height="750px" width="500px"> <img src="static/images/user_data.PNG" height="750px" width="500px">
+### Database Relationships
+![Database-relationships](static/images/db_relationships.png)
 ## Technologies Used
 ---
 This project used the languages Python, HTML5, javascript and CSS3.
