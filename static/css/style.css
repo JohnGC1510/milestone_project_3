@@ -7,3 +7,11 @@
 .header-container{
     align-items: center;
 }
+
+
+
+/*---------- Forms ----------*/
+.form-container{
+    justify-content: center;
+    text-align: center;
+}

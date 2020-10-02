@@ -14,7 +14,7 @@
         <div class="container-fluid bg-light">
             <div class="row header-container">
                 <div class="col-4 text-center">
-                    <a href="#"><img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"></a>
+                    <a href="{{ url_for('index') }}"><img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"></a>
                 </div>
                 <div class="col-4 text-center">
                     <h1>Pass Physics</h1>
@@ -24,7 +24,7 @@
                     <nav class="navbar navbar-light">
                         <ul class="nav-bar nav">
                             <li class="nav-item"><a class="btn" href="#">Log In</a></li>
-                            <li class="nav-item"><a class="btn" href="#">Sign Up</a></li>
+                            <li class="nav-item"><a class="btn" href="{{ url_for('register') }}">Sign Up</a></li>
                         </ul>
                     </nav>
                 </div>
