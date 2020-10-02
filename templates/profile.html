@@ -1,4 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-    <h3> {{ user.class }}'s profile page </h3>
+    {% if user.user_type == "teacher" %}
+        <h3>Hello {{ user.title }} {{user.surname }}</h3>
+    {% endif %}
+    {% if user.user_type == "student" %}
+        <h3> Hello {{ user.first_name }} I hope you are ready to revise </h3>
+    {% endif %}
 {% endblock %}
