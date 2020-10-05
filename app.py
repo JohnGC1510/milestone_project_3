@@ -34,6 +34,26 @@ def profile(user):
     return render_template("profile.html", user=user)
 
 
+@app.route("/add_question", methods=["GET", "POST"])
+def add_question():
+    if request.method == "POST":
+        question = {
+            "module_name": request.form.get("module_name").lower(),
+            "grade": request.form.get("grade"),
+            "question_name": request.form.get("question_name"),
+            "question": request.form.get("question"),
+            "method": request.form.get("method"),
+            "answer": request.form.get("answer"),
+            "author": session["user"]
+        }
+
+        mongo.db.questions.insert_one(question)
+        flash("question successfully added")
+        return redirect(url_for("profile", user=session["user"]))
+
+    return render_template("add_question.html")
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":

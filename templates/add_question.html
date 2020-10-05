@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-center"> Add Question</h2>
+<div class="container form-container">
+<div class="row"> 
+    <form class="col-sm-12 offset-md-2 col-md-8 " method="POST" action="{{ url_for('add_question') }}">
+        <div class="form-row">
+            <div class="col-12">
+                <label for="module_name">Module</label>
+                <select id="module_name" name="module_name" required>
+                    <option value="" disabled selected>Choose...</option>
+                    <!-- {% for module in modules %}
+                         <option value="{{ module.module_name }}"">{{module.module_name}}</option>  
+                        {% endfor %}
+                    -->
+                    <option value="energy">Energy</option>
+                    <option value="electrcity">Electrcity</option>
+                    <option value="particles">Particles</option> 
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-6">
+                <label for="grade">Grade</label>
+                <input type="number" id="grade" name="grade"
+                 min="1" max="9" required> 
+            </div>
+            <div class="col-sm-6">
+                <label for="queston_name">Question Name:</label>
+                <input type="text" id="question_name" name="question_name"
+                 minlength="3" maxlength="30" required> 
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-12">
+                 <label for="question">Question</label>
+                <textarea id="question" name="question" minlength="10" maxlength="250" required>
+                </textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-12">
+                 <label for="method">Method</label>
+                <textarea id="method" name="method" minlength="5" maxlength="250" required>
+                </textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-12">
+                 <label for="answer">Answer</label>
+                <input type="text" id="answer" name="answer" 
+                 minlength="1" maxlength="30" required> 
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Add Question</button>
+        </div>
+  </div>
+</form>
+
+</div>
+</div>
+{% endblock %}

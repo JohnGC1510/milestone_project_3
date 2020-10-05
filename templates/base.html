@@ -14,7 +14,11 @@
         <div class="container-fluid bg-light">
             <div class="row header-container">
                 <div class="col-4 text-center">
-                    <a href="{{ url_for('index') }}"><img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"></a>
+                    {% if session.user %}
+                        <a href="{{ url_for('profile', user=session['user']) }}"><img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"></a>
+                    {% else %}
+                        <a href="{{ url_for('index') }}"><img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"></a>
+                    {% endif %}
                 </div>
                 <div class="col-4 text-center">
                     <h1>Pass Physics</h1>

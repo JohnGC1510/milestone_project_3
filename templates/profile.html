@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
     {% if user.user_type == "teacher" %}
-        <h3>Hello {{ user.title }} {{user.surname }}</h3>
+        <h3>Hello {{ user.title }} {{user.surname }}<br>
+            <a href="{{ url_for('add_question') }}">Click Here</a> to add a question
+        </h3>
     {% endif %}
     {% if user.user_type == "student" %}
         <h3> Hello {{ user.first_name }} I hope you are ready to revise </h3>
