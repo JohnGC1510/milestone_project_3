@@ -122,8 +122,10 @@ def delete_question(question_id):
     module = mongo.db.modules.find_one(
         {"module_name": question["module_name"]})
     module["total_questions"] -= 1
-    """ mongo.db.modules.update_one(
-        module, {"$set": {"total_questions": module["total_questions"]}}) """
+    """mongo.db.modules.update_one(
+        module,
+        {"$set": {"total_questions": module["total_questions"]}}
+        )"""
     mongo.db.modules.update_one(
         {"module_name": module["module_name"]},
         {"$set": {"total_questions": module["total_questions"]}}
