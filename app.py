@@ -1,4 +1,5 @@
 import os
+import json
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -38,6 +39,7 @@ def profile(user):
 
 @app.route("/add_question", methods=["GET", "POST"])
 def add_question():
+    modules = mongo.db.modules.find()
     if request.method == "POST":
         question = {
             "module_name": request.form.get("module_name").lower(),
@@ -48,16 +50,27 @@ def add_question():
             "answer": request.form.get("answer"),
             "author": session["user"]
         }
+        for module in modules:
+            if module["module_name"] == question.get("module_name"):
+                module["total_questions"] += 1
+                mongo.db.modules.update_one(
+                    {"module_name": module["module_name"]},
+                    {"$set": {"total_questions": module["total_questions"]}}
+                )
 
         mongo.db.questions.insert_one(question)
         flash("question successfully added")
         return redirect(url_for("profile", user=session["user"]))
-    modules = mongo.db.modules.find()
+
     return render_template("add_question.html", modules=modules)
 
 
 @app.route("/edit_question/<question_id>", methods=["GET", "POST"])
 def edit_question(question_id):
+    question = mongo.db.questions.find_one({"_id": ObjectId(question_id)})
+    modules = mongo.db.modules.find()
+    question_module = question.get("module_name")
+
     if request.method == "POST":
         question_update = {
             "module_name": request.form.get("module_name").lower(),
@@ -68,14 +81,36 @@ def edit_question(question_id):
             "answer": request.form.get("answer"),
             "author": session["user"]
         }
+        for module in modules:
+            module_name = module.get("module_name")
+            updated_name = question_update.get("module_name")
+            # if module is unchanged by edit
+            if (updated_name == module_name and
+                    question_module == module_name):
+                break
 
+            # if module name equal to last questions module total_questions -=1
+            elif (module_name == question_module and
+                    module_name != updated_name):
+                module["total_questions"] -= 1
+                mongo.db.modules.update_one(
+                    {"module_name": module["module_name"]},
+                    {"$set":
+                        {"total_questions": module["total_questions"]}}
+                )
+            # if module name has changed on edit module total_questions +=1
+            elif (module_name == updated_name and
+                    module_name != question_module):
+                module["total_questions"] += 1
+                mongo.db.modules.update_one(
+                    {"module_name": module["module_name"]},
+                    {"$set":
+                        {"total_questions": module["total_questions"]}}
+                )
         mongo.db.questions.update(
             {"_id": ObjectId(question_id)}, question_update)
         flash("question successfully edited")
         return redirect(url_for("profile", user=session["user"]))
-
-    question = mongo.db.questions.find_one({"_id": ObjectId(question_id)})
-    modules = mongo.db.modules.find()
 
     return render_template("edit_question.html",
                            modules=modules, question=question)
@@ -83,13 +118,23 @@ def edit_question(question_id):
 
 @app.route("/delete_question/<question_id>")
 def delete_question(question_id):
-    mongo.db.questions.remove({"_id": ObjectId(question_id)})
+    question = mongo.db.questions.find_one({"_id": ObjectId(question_id)})
+    module = mongo.db.modules.find_one(
+        {"module_name": question["module_name"]})
+    module["total_questions"] -= 1
+    """ mongo.db.modules.update_one(
+        module, {"$set": {"total_questions": module["total_questions"]}}) """
+    mongo.db.modules.update_one(
+        {"module_name": module["module_name"]},
+        {"$set": {"total_questions": module["total_questions"]}}
+        )
+    mongo.db.questions.delete_one({"_id": ObjectId(question_id)})
     flash("Question has been deleted")
 
     return redirect(url_for("profile", user=session["user"]))
 
 
-@app.route("/manage_modules", methods=["GET", "POST"])
+@app.route("/manage_modules")
 def manage_modules():
     modules = mongo.db.modules.find()
     return render_template("manage_modules.html", modules=modules)
@@ -99,7 +144,8 @@ def manage_modules():
 def add_module():
     if request.method == "POST":
         module = {
-            "module_name": request.form.get("module_name").lower()
+            "module_name": request.form.get("module_name").lower(),
+            "total_questions": 0
         }
         mongo.db.modules.insert_one(module)
         return redirect(url_for("manage_modules"))
