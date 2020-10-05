@@ -4,6 +4,27 @@
         <h3>Hello {{ user.title }} {{user.surname }}<br>
             <a href="{{ url_for('add_question') }}">Click Here</a> to add a question
         </h3>
+        <div class="container">
+            <div class="row">
+                {% for question in questions %}
+                    {% if question.author == session.user %}
+                        <div class="col-sm-6 d-inline-block">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ question.question_name }}</h5>
+                                    <p class="card-text">{{ question.question }} <br>
+                                        {{ question.method }}<br>
+                                        {{ question.answer }}
+                                    </p>
+                                    <a href="{{url_for('edit_question', question_id=question._id) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{url_for('delete_question', question_id=question._id) }}" class="btn btn-primary">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     {% endif %}
     {% if user.user_type == "student" %}
         <h3> Hello {{ user.first_name }} I hope you are ready to revise </h3>

@@ -31,7 +31,9 @@ def profile(user):
     user = mongo.db.users.find_one(
             {"username": session["user"]})
 
-    return render_template("profile.html", user=user)
+    questions = mongo.db.questions.find()
+
+    return render_template("profile.html", user=user, questions=questions)
 
 
 @app.route("/add_question", methods=["GET", "POST"])
@@ -52,6 +54,37 @@ def add_question():
         return redirect(url_for("profile", user=session["user"]))
 
     return render_template("add_question.html")
+
+
+@app.route("/edit_question/<question_id>", methods=["GET", "POST"])
+def edit_question(question_id):
+    if request.method == "POST":
+        question_update = {
+            "module_name": request.form.get("module_name").lower(),
+            "grade": request.form.get("grade"),
+            "question_name": request.form.get("question_name"),
+            "question": request.form.get("question"),
+            "method": request.form.get("method"),
+            "answer": request.form.get("answer"),
+            "author": session["user"]
+        }
+
+        mongo.db.questions.update(
+            {"_id": ObjectId(question_id)}, question_update)
+        flash("question successfully edited")
+        return redirect(url_for("profile", user=session["user"]))
+
+    question = mongo.db.questions.find_one({"_id": ObjectId(question_id)})
+
+    return render_template("edit_question.html", question=question)
+
+
+@app.route("/delete_question/<question_id>")
+def delete_question(question_id):
+    mongo.db.questions.remove({"_id": ObjectId(question_id)})
+    flash("Question has been deleted")
+
+    return redirect(url_for("profile", user=session["user"]))
 
 
 @app.route("/register", methods=["GET", "POST"])
