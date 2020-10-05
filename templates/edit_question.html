@@ -8,14 +8,13 @@
             <div class="col-12">
                 <label for="module_name">Module</label>
                 <select id="module_name" name="module_name" required>
-                    <option value="" disabled selected>Choose...</option>
-                    <!-- {% for module in modules %}
-                         <option value="{{ module.module_name }}"">{{module.module_name}}</option>  
-                        {% endfor %}
-                    -->
-                    <option value="energy">Energy</option>
-                    <option value="electrcity">Electrcity</option>
-                    <option value="particles">Particles</option> 
+                    {% for module in modules %}
+                        {% if module.module_name == question.module_name %}
+                         <option value="{{ module.module_name }}" selected>{{ module.module_name }}</option>
+                         {% else %}  
+                         <option value="{{ module.module_name }}">{{ module.module_name }}</option>
+                         {% endif %}
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -35,7 +34,7 @@
             <div class="col-sm-12">
                  <label for="question">Question:</label>
                 <textarea id="question" name="question" minlength="10" maxlength="250" required>
-                {{ question.question }}
+                {{- question.question -}}
                 </textarea>
             </div>
         </div>
@@ -43,7 +42,7 @@
             <div class="col-sm-12">
                  <label for="method">Method:</label>
                 <textarea id="method" name="method" minlength="5" maxlength="250" required>
-                {{ question.method }}
+                {{- question.method -}}
                 </textarea>
             </div>
         </div>

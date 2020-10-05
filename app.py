@@ -52,8 +52,8 @@ def add_question():
         mongo.db.questions.insert_one(question)
         flash("question successfully added")
         return redirect(url_for("profile", user=session["user"]))
-
-    return render_template("add_question.html")
+    modules = mongo.db.modules.find()
+    return render_template("add_question.html", modules=modules)
 
 
 @app.route("/edit_question/<question_id>", methods=["GET", "POST"])
@@ -75,8 +75,10 @@ def edit_question(question_id):
         return redirect(url_for("profile", user=session["user"]))
 
     question = mongo.db.questions.find_one({"_id": ObjectId(question_id)})
+    modules = mongo.db.modules.find()
 
-    return render_template("edit_question.html", question=question)
+    return render_template("edit_question.html",
+                           modules=modules, question=question)
 
 
 @app.route("/delete_question/<question_id>")
@@ -85,6 +87,48 @@ def delete_question(question_id):
     flash("Question has been deleted")
 
     return redirect(url_for("profile", user=session["user"]))
+
+
+@app.route("/manage_modules", methods=["GET", "POST"])
+def manage_modules():
+    modules = mongo.db.modules.find()
+    return render_template("manage_modules.html", modules=modules)
+
+
+@app.route("/add_module", methods=["GET", "POST"])
+def add_module():
+    if request.method == "POST":
+        module = {
+            "module_name": request.form.get("module_name").lower()
+        }
+        mongo.db.modules.insert_one(module)
+        return redirect(url_for("manage_modules"))
+
+    return render_template("add_module.html")
+
+
+@app.route("/edit_module/<module_id>", methods=["GET", "POST"])
+def edit_module(module_id):
+    if request.method == "POST":
+        module_edit = {
+            "module_name": request.form.get("module_name").lower()
+        }
+        mongo.db.modules.update(
+            {"_id": ObjectId(module_id)},
+            module_edit
+        )
+        flash("Module has been updated")
+        return redirect(url_for("manage_modules"))
+
+    module = mongo.db.modules.find_one({"_id": ObjectId(module_id)})
+    return render_template("edit_module.html", module=module)
+
+
+@app.route("/delete_module/<module_id>")
+def delete_module(module_id):
+    mongo.db.modules.remove({"_id": ObjectId(module_id)})
+    flash("Module deleted successfully")
+    return redirect(url_for("manage_modules"))
 
 
 @app.route("/register", methods=["GET", "POST"])
