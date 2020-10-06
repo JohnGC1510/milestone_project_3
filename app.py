@@ -37,6 +37,27 @@ def profile(user):
     return render_template("profile.html", user=user, questions=questions)
 
 
+@app.route("/all_questions")
+def all_questions():
+    questions = mongo.db.questions.find()
+    user = mongo.db.users.find_one(
+            {"username": session["user"]})
+    return render_template(
+        "all_questions.html", questions=questions, user=user)
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    questions = mongo.db.questions.find(
+        {"$text": {"$search": query}}
+    )
+    user = mongo.db.users.find_one(
+            {"username": session["user"]})
+    return render_template(
+        "all_questions.html", questions=questions, user=user)
+
+
 @app.route("/add_question", methods=["GET", "POST"])
 def add_question():
     modules = mongo.db.modules.find()
@@ -52,12 +73,10 @@ def add_question():
         }
         for module in modules:
             if module["module_name"] == question.get("module_name"):
-                module["total_questions"] += 1
                 mongo.db.modules.update_one(
                     {"module_name": module["module_name"]},
-                    {"$set": {"total_questions": module["total_questions"]}}
+                    {"$inc": {"total_questions": +1}}
                 )
-
         mongo.db.questions.insert_one(question)
         flash("question successfully added")
         return redirect(url_for("profile", user=session["user"]))
@@ -92,20 +111,16 @@ def edit_question(question_id):
             # if module name equal to last questions module total_questions -=1
             elif (module_name == question_module and
                     module_name != updated_name):
-                module["total_questions"] -= 1
                 mongo.db.modules.update_one(
                     {"module_name": module["module_name"]},
-                    {"$set":
-                        {"total_questions": module["total_questions"]}}
+                    {"$inc": {"total_questions": -1}}
                 )
             # if module name has changed on edit module total_questions +=1
             elif (module_name == updated_name and
                     module_name != question_module):
-                module["total_questions"] += 1
                 mongo.db.modules.update_one(
                     {"module_name": module["module_name"]},
-                    {"$set":
-                        {"total_questions": module["total_questions"]}}
+                    {"$inc": {"total_questions": +1}}
                 )
         mongo.db.questions.update(
             {"_id": ObjectId(question_id)}, question_update)
@@ -119,20 +134,12 @@ def edit_question(question_id):
 @app.route("/delete_question/<question_id>")
 def delete_question(question_id):
     question = mongo.db.questions.find_one({"_id": ObjectId(question_id)})
-    module = mongo.db.modules.find_one(
-        {"module_name": question["module_name"]})
-    module["total_questions"] -= 1
-    """mongo.db.modules.update_one(
-        module,
-        {"$set": {"total_questions": module["total_questions"]}}
-        )"""
     mongo.db.modules.update_one(
-        {"module_name": module["module_name"]},
-        {"$set": {"total_questions": module["total_questions"]}}
+            {"module_name": question["module_name"]},
+            {"$inc": {"total_questions": -1}}
         )
-    mongo.db.questions.delete_one({"_id": ObjectId(question_id)})
+    mongo.db.questions.remove({"_id": ObjectId(question_id)})
     flash("Question has been deleted")
-
     return redirect(url_for("profile", user=session["user"]))
 
 

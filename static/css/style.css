@@ -19,5 +19,7 @@
 
 /*---------- Flash Messages --------------*/
 .flashes{
-    background-color:aqua
+    background-color:aqua;
+    margin-top:15px;
+    margin-bottom: 15px;
 }

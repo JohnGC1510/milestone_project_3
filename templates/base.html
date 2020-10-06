@@ -29,7 +29,7 @@
                         <ul class="nav-bar nav">
                             {% if session.user %}
                                 <li class="nav-item"><a class="btn" href="{{ url_for('profile', user=session['user']) }}">Home</a></li>
-                                <li class="nav-item"><a class="btn" href="#">All Questions</a></li>
+                                <li class="nav-item"><a class="btn" href="{{ url_for('all_questions') }}">All Questions</a></li>
                                 <li class="nav-item"><a class="btn" href="#">Class</a></li>
                                 {% if session.user == "admin" %}
                                     <li class="nav-item"><a class="btn" href="{{ url_for('manage_modules') }}">Manage Modules</a></li>
