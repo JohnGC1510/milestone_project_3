@@ -220,6 +220,25 @@ def register():
             "class": request.form.get("class")
         }
         mongo.db.users.insert_one(new_user)
+
+        if new_user["user_type"] == "student":
+            student = {
+                "userId": new_user["_id"],
+                "class": request.form.get("class"),
+                "questions_answered": 0,
+                "questions_correct": 0,
+                "percentage_correct": 0.0,
+                "current_grade": 4
+            }
+            mongo.db.students.insert_one(student)
+
+        if new_user["user_type"] == "teacher":
+            teacher = {
+                "userId": new_user["_id"],
+                "class": request.form.get("class")
+            }
+            mongo.db.teachers.insert_one(teacher)
+
         # put new user into session cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful")
