@@ -1,5 +1,5 @@
 import os
-import json
+import pygal
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -33,6 +33,10 @@ def profile(user):
             {"username": session["user"]})
 
     questions = mongo.db.questions.find()
+    if user["user_type"] == "student":
+        student = mongo.db.students.find_one({"userId": user["_id"]})
+        return render_template("profile.html", user=user, questions=questions,
+                               student=student)
 
     return render_template("profile.html", user=user, questions=questions)
 
@@ -60,15 +64,57 @@ def search():
 
 @app.route("/answer/<question_id>", methods=["GET", "POST"])
 def answer(question_id):
+    userId = mongo.db.users.find_one(
+        {"username": session["user"]}
+        )["_id"]
+    student = mongo.db.students.find_one({"userId": userId})
     student_answer = request.form.get("answer")
     question_answer = mongo.db.questions.find_one(
         {"_id": ObjectId(question_id)})["answer"]
     if student_answer == question_answer:
         flash("correct")
+        mongo.db.students.update_one(
+            {"_id": student["_id"]},
+            {"$inc": {"questions_correct": +1}}
+        )
+        mongo.db.students.update_one(
+            {"_id": student["_id"]},
+            {"$inc": {"questions_answered": +1}}
+        )
     else:
         flash("incorrect")
+        mongo.db.students.update_one(
+            {"_id": student["_id"]},
+            {"$inc": {"questions_answered": +1}}
+        )
 
     return redirect(url_for('all_questions'))
+
+
+@app.route("/make_graph")
+def make_graph():
+    userId = mongo.db.users.find_one(
+        {"username": session["user"]}
+        )["_id"]
+    student = mongo.db.students.find_one({"userId": userId})
+    correct = float(student["questions_correct"])
+    total = float(student["questions_answered"])
+    # avoid division by zero error
+    if total != 0:
+        incorrect = total - correct
+        correct_value = (correct/total)*100
+        incorrect_value = (incorrect/total)*100
+        pie_chart = pygal.Pie()
+        pie_chart.add("Correct", correct_value)
+        pie_chart.add("Incorrect", incorrect_value)
+        pie_chart.render()
+    else:
+        pie_chart = pygal.Pie()
+        pie_chart.add("Correct (example)", 65)
+        pie_chart.add("Incorrect (example)", 35)
+        pie_chart.render()
+
+    return pie_chart.render_response()
 
 
 @app.route("/add_question", methods=["GET", "POST"])
