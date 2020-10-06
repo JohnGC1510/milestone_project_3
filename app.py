@@ -1,5 +1,6 @@
 import os
 import pygal
+from pygal.style import Style
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -99,17 +100,24 @@ def make_graph():
     student = mongo.db.students.find_one({"userId": userId})
     correct = float(student["questions_correct"])
     total = float(student["questions_answered"])
+    custom = Style(
+        background="transparent",
+        colors=("#0D31C5", "#B4B5B7"),
+        opacity="0.6",
+        opacity_hover="0.9"
+    )
     # avoid division by zero error
     if total != 0:
         incorrect = total - correct
         correct_value = (correct/total)*100
         incorrect_value = (incorrect/total)*100
-        pie_chart = pygal.Pie()
+        pie_chart = pygal.Pie(legend_at_bottom=True, legend_box_size=24)
         pie_chart.add("Correct", correct_value)
         pie_chart.add("Incorrect", incorrect_value)
         pie_chart.render()
     else:
-        pie_chart = pygal.Pie()
+        pie_chart = pygal.Pie(
+            show_legend=False, margin=0, style=custom)
         pie_chart.add("Correct (example)", 65)
         pie_chart.add("Incorrect (example)", 35)
         pie_chart.render()

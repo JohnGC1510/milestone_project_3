@@ -8,8 +8,106 @@
     align-items: center;
 }
 
+.footer-container{
+    align-items: center;
+}
+
+.footer-text{
+    font-size: 20px;
+}
+
+.social-icons i{
+    color:black;
+    font-size: 32px;
+    margin: 20px 10px;
+}
+
+.social-icons i:hover{
+    color:darkgray
+}
+/*-------- Index Page ----------*/
+.hero-container{
+    height: 55vh;
+    position: relative;
+}
+
+#hero-img{
+    height:100%;
+    width:100%;
+}
+
+.hero-text{
+    position: absolute;
+    top: 30%;
+    left:0;
+    right:0;
+    z-index:1;
+    font-size:24px;
+    overflow:hidden;
+    max-width: 500px;
+    color:white;
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.call-to-action{
+    display: block;
+    width:250px;
+    height:75px;
+    border-radius:33%;
+    font-weight:bold;
+    background-color:#c0cdc9;
+    color:black;
+    margin: 20px auto;
+    padding-top:18px;
+}
+
+.call-to-action:hover{
+    text-decoration: none;
+    color:white;
+}
+
+.benefits-container{
+    align-items: center;
+}
+
+.benefits-item{
+   align-items: center;
+   margin: 15px 0;
+}
 
 
+.benefits-img{
+    max-height:300px;
+    width:100%;
+}
+
+.benefits-img img{
+    height:100%;
+    width:100%;
+    border-radius: 10%;
+}
+
+.testimonial-container{
+    align-items: center;
+}
+
+.testimonial-item{
+   align-items: center;
+   margin: 15px 0;
+}
+
+
+.testimonial-img{
+    max-height:300px;
+    width:100%;
+}
+
+.testimonial-img img{
+    height:100%;
+    width:100%;
+    border-radius: 10%;
+}
 /*---------- Forms ----------*/
 .form-container{
     justify-content: center;

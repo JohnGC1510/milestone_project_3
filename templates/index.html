@@ -1,9 +1,72 @@
 {% extends "base.html" %}
 {% block content %}
-    {% for user in users %}
-    {{ user.username  }}<br>
-    {{  user.password }}<br>
-    {{ user.first_name }}
-    {% endfor %}
+	<div class="hero-container">
+		<img src="{{ url_for('static', filename='images/hero.jpg') }}" id="hero-img"/>
+		<div class="hero-text text-center">
+			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam tempore at eius fugiat debitis necessitatibus
+				soluta deleniti pariatur velit minus enim repudiandae, nam voluptas blanditiis libero eaque culpa dolore
+				est?</p>
+			<a class="call-to-action" href="{{ url_for('register') }}">Sign Up</a>
+		</div>
+	</div>
+	
+	<div class="col-12 text-center">
+		<h2>Why Choose Us?</h2>
+		<hr>
+	</div>
+	
+	<div class="container benefits-container">
+        <div class="row text-center benefits-item">
+			<div class="col-sm-12 col-md-5 benefits-img">
+				<img src="{{ url_for('static', filename='images/studying.jpg') }}">
+		    </div>
+			<div class="col-sm-12 col-md-7 benefits-txt">
+				<h4>Student Benefits</h4>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quis aliquid reiciendis omnis,
+					ad vero expedita perferendis similique odit mollitia? Id nihil illum cupiditate eum soluta quae
+					fugiat voluptate repudiandae?</p>
+			</div>
+		</div>
+			<div class="row text-center benefits-item">
+				<div class="col-sm-12 col-md-7 benefits-txt">
+					<h4>Teacher Benefits</h4>
+					<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae laboriosam sunt facilis unde
+						aliquam veritatis deleniti esse ipsa alias quasi earum ut, officiis doloribus porro ipsam quae
+						hic error ratione?</p>
+				</div>
+				<div class="col-sm-12 col-md-5 benefits-img">
+					<img src="{{ url_for('static', filename='images/teaching.jpg') }}">
+		        </div>
+			</div>
+    </div>
+
+    <h2 class="text-center">Testimonials</h2>
+    <hr>
+
+    	<div class="container testimonial-container">
+        <div class="row text-center testimonial-item">
+			<div class="col-sm-12 col-md-5 testimonial-img">
+				<img src="{{ url_for('static', filename='images/brian-cox.jpg') }}">
+		    </div>
+			<div class="col-sm-12 col-md-7 testimonial-txt">
+				<h4>Brian Cox</h4>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quis aliquid reiciendis omnis,
+					ad vero expedita perferendis similique odit mollitia? Id nihil illum cupiditate eum soluta quae
+					fugiat voluptate repudiandae?</p>
+			</div>
+		</div>
+			<div class="row text-center testimonial-item">
+				<div class="col-sm-12 col-md-7 testimonial-txt">
+					<h4>John Smith</h4>
+					<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae laboriosam sunt facilis unde
+						aliquam veritatis deleniti esse ipsa alias quasi earum ut, officiis doloribus porro ipsam quae
+						hic error ratione?</p>
+				</div>
+				<div class="col-sm-12 col-md-5 testimonial-img">
+					<img src="{{ url_for('static', filename='images/student.jpg') }}">
+		        </div>
+			</div>
+    </div>
+			
 {% endblock %}
 
