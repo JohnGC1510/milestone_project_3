@@ -39,7 +39,7 @@ def profile(user):
 
 @app.route("/all_questions")
 def all_questions():
-    questions = mongo.db.questions.find()
+    questions = list(mongo.db.questions.find())
     user = mongo.db.users.find_one(
             {"username": session["user"]})
     return render_template(
@@ -49,13 +49,26 @@ def all_questions():
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form.get("query")
-    questions = mongo.db.questions.find(
+    questions = list(mongo.db.questions.find(
         {"$text": {"$search": query}}
-    )
+    ))
     user = mongo.db.users.find_one(
             {"username": session["user"]})
     return render_template(
         "all_questions.html", questions=questions, user=user)
+
+
+@app.route("/answer/<question_id>", methods=["GET", "POST"])
+def answer(question_id):
+    student_answer = request.form.get("answer")
+    question_answer = mongo.db.questions.find_one(
+        {"_id": ObjectId(question_id)})["answer"]
+    if student_answer == question_answer:
+        flash("correct")
+    else:
+        flash("incorrect")
+
+    return redirect(url_for('all_questions'))
 
 
 @app.route("/add_question", methods=["GET", "POST"])

@@ -17,24 +17,31 @@
 </div>
 <!--     Student View     -->
 {% if user.user_type == "student" %}
-<div class="container">
-	<div class="row">
-		{% for question in questions %}
-		<div class="col-sm-6 d-inline-block">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">{{ question.question_name }}</h5>
-					<p class="card-text">question: {{ question.question }}</p>
-					<p>Answer question here</p>
-				</div>
-			</div>
-		</div>
+    {% if questions|length > 0 %}
+        <div class="container">
+            <div class="row">
+		    {% for question in questions %}
+		    <form action="{{ url_for('answer', question_id=question._id) }}" method="POST" class="col-sm-12 col-md-6">
+                <div class="question-name">
+                    <h4> {{ question.question_name }} </h4>
+                </div>
+                <div class="question">
+                    {{ question.question }}    
+                </div>
+                <label for="answer">Answer</label>
+                <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
+                <button type="submit">Check</button>
+            </form>
 		{% endfor %}
 	</div>
 </div>
+    {% else %}
+    <h3 class="text-center">No questions were found matching your search</h3>
+    {% endif %}
 {% endif %}
 <!--       Teacher and admin view       -->
 {% if user.user_type == "teacher" or user.user_type == "admin" %}
+    {% if questions|length > 0 %}
         <div class="container">
             <div class="row">
                 {% for question in questions %}
@@ -53,6 +60,8 @@
                 {% endfor %}
             </div>
         </div>
-
+    {% else %}
+    <h3 class="text-center">No questions were found matching your search</h3>
+    {% endif %}
 {% endif %}
 {% endblock %}
