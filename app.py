@@ -24,8 +24,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/index")
 def index():
-    users = mongo.db.users.find()
-    return render_template("index.html", users=users)
+    return render_template("index.html")
 
 
 @app.route("/profile/<user>")
@@ -65,6 +64,7 @@ def search():
 
 @app.route("/answer/<question_id>", methods=["GET", "POST"])
 def answer(question_id):
+    # check user logged in
     userId = mongo.db.users.find_one(
         {"username": session["user"]}
         )["_id"]
@@ -94,6 +94,7 @@ def answer(question_id):
 
 @app.route("/make_graph")
 def make_graph():
+    # check user logged in (use function)
     userId = mongo.db.users.find_one(
         {"username": session["user"]}
         )["_id"]
@@ -124,6 +125,22 @@ def make_graph():
         pie_chart.render()
 
     return pie_chart.render_response()
+
+
+@app.route("/classes")
+def classes():
+    user_class = mongo.db.users.find_one(
+        {"username": session["user"]}
+    )["class"]
+    class_members = mongo.db.classes.find_one(
+        {"class_name": user_class}
+    )["member_names"]
+    students = mongo.db.students.find()
+    return render_template(
+        "class.html",
+        students=students,
+        class_members=class_members
+        )
 
 
 @app.route("/add_question", methods=["GET", "POST"])
@@ -213,9 +230,10 @@ def delete_question(question_id):
 
 @app.route("/manage_modules")
 def manage_modules():
+    # if user = admin
     modules = mongo.db.modules.find()
     return render_template("manage_modules.html", modules=modules)
-
+    # else return unauthorized template
 
 @app.route("/add_module", methods=["GET", "POST"])
 def add_module():
@@ -275,6 +293,10 @@ def register():
             "class": request.form.get("class")
         }
         mongo.db.users.insert_one(new_user)
+        mongo.db.classes.update_one(
+                {"class_name": new_user["class"]},
+                {"$addToSet": {"member_names": new_user["username"]}}
+            )
 
         if new_user["user_type"] == "student":
             student = {
@@ -293,7 +315,7 @@ def register():
                 "class": request.form.get("class")
             }
             mongo.db.teachers.insert_one(teacher)
-
+ 
         # put new user into session cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful")

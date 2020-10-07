@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for student in students %}
+        {% for member in class_members %}
+            {% if student.class == member.class_name %}
+                <p>{{ member }} </p>
+            {% endif %}
+        {% endfor %}    
+    {% endfor %}
+{% endblock %}
