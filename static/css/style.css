@@ -1,3 +1,7 @@
+/*--------- Colours ------------*/
+.silver-bg-color{
+    background-color:#c0cdc9;
+}
 /*--------- Base Template ----------*/
 #logo{
     max-width:120px;
@@ -23,7 +27,7 @@
 }
 
 .social-icons i:hover{
-    color:darkgray
+    color:#F9F8F6;
 }
 /*-------- Index Page ----------*/
 .hero-container{
@@ -112,8 +116,16 @@
 .form-container{
     justify-content: center;
     text-align: center;
+    background-color: lightskyblue;
+}
+.register-item{
+    width:100%;
 }
 
+.register-btn{
+    margin: 15px auto;
+    width:100%;
+}
 
 /*---------- Flash Messages --------------*/
 .flashes{

@@ -111,7 +111,8 @@ def make_graph():
         incorrect = total - correct
         correct_value = (correct/total)*100
         incorrect_value = (incorrect/total)*100
-        pie_chart = pygal.Pie(legend_at_bottom=True, legend_box_size=24)
+        pie_chart = pygal.Pie(
+            show_legend=False, margin=0, style=custom)
         pie_chart.add("Correct", correct_value)
         pie_chart.add("Incorrect", incorrect_value)
         pie_chart.render()
