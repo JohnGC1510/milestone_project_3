@@ -77,19 +77,42 @@ def answer(question_id):
         {"_id": ObjectId(question_id)})["answer"]
     if student_answer == question_answer:
         flash("correct")
-        mongo.db.students.update_one(
+        mongo.db.students.update(
             {"_id": student["_id"]},
-            {"$inc": {"questions_correct": +1}}
+            {"$inc": {"questions_correct": +1,
+             "questions_answered": +1}}
         )
         mongo.db.students.update_one(
             {"_id": student["_id"]},
-            {"$inc": {"questions_answered": +1}}
+            {"$addToSet": {"questions_correct_id": ObjectId(question_id)}}
         )
+        mongo.db.students.update_one(
+            {"_id": student["_id"]},
+            {"$pull": {"questions_unanswered": ObjectId(question_id)}}
+        )
+        questions_incorrect = mongo.db.students.find_one(
+            {"_id": student["_id"]}
+        )["questions_incorrect_id"]
+        for incorrect_id in questions_incorrect:
+            if incorrect_id == ObjectId(question_id):
+                mongo.db.students.update_one(
+                    {"_id": student["_id"]},
+                    {"$pull":
+                     {"questions_incorrect_id": ObjectId(question_id)}}
+                )
     else:
         flash("incorrect")
         mongo.db.students.update_one(
             {"_id": student["_id"]},
             {"$inc": {"questions_answered": +1}}
+        )
+        mongo.db.students.update_one(
+            {"_id": student["_id"]},
+            {"$addToSet": {"questions_incorrect_id": ObjectId(question_id)}}
+        )
+        mongo.db.students.update_one(
+            {"_id": student["_id"]},
+            {"$pull": {"questions_unanswered": ObjectId(question_id)}}
         )
 
     return redirect(url_for('all_questions'))
