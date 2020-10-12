@@ -46,8 +46,11 @@ def all_questions():
     questions = list(mongo.db.questions.find())
     user = mongo.db.users.find_one(
             {"username": session["user"]})
+    student = mongo.db.students.find_one(
+        {"userId": user["_id"]}
+    )
     return render_template(
-        "all_questions.html", questions=questions, user=user)
+        "all_questions.html", questions=questions, user=user, student=student)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -156,13 +159,22 @@ def add_question():
             "answer": request.form.get("answer"),
             "author": session["user"]
         }
+        mongo.db.questions.insert_one(question)
+
         for module in modules:
             if module["module_name"] == question.get("module_name"):
                 mongo.db.modules.update_one(
                     {"module_name": module["module_name"]},
                     {"$inc": {"total_questions": +1}}
                 )
-        mongo.db.questions.insert_one(question)
+        print(question["_id"])
+        students = mongo.db.students.find()
+        for student in students:
+            mongo.db.students.update_one(
+                {"userId": student["userId"]},
+                {"$addToSet": {"questions_unanswered": question["_id"]}}
+            )
+
         flash("question successfully added")
         return redirect(url_for("profile", user=session["user"]))
 
@@ -223,6 +235,12 @@ def delete_question(question_id):
             {"module_name": question["module_name"]},
             {"$inc": {"total_questions": -1}}
         )
+    students = mongo.db.students.find()
+    for student in students:
+        mongo.db.students.update_one(
+            {"userId": student["userId"]},
+            {"$pull": {"questions_unanswered": question["_id"]}}
+        )
     mongo.db.questions.remove({"_id": ObjectId(question_id)})
     flash("Question has been deleted")
     return redirect(url_for("profile", user=session["user"]))
@@ -234,6 +252,7 @@ def manage_modules():
     modules = mongo.db.modules.find()
     return render_template("manage_modules.html", modules=modules)
     # else return unauthorized template
+
 
 @app.route("/add_module", methods=["GET", "POST"])
 def add_module():
@@ -299,14 +318,23 @@ def register():
             )
 
         if new_user["user_type"] == "student":
+            questions = mongo.db.questions.find()
+            question_ids = []
+            for question in questions:
+                question_ids.append(question["_id"])
+
             student = {
                 "userId": new_user["_id"],
                 "class": request.form.get("class"),
                 "questions_answered": 0,
                 "questions_correct": 0,
                 "percentage_correct": 0.0,
-                "current_grade": 4
+                "current_grade": 4,
+                "questions_unanswered": question_ids,
+                "questions_correct_id": [],
+                "questions_incorrect_id": []
             }
+
             mongo.db.students.insert_one(student)
 
         if new_user["user_type"] == "teacher":
