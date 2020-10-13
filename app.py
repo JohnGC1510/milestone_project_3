@@ -155,17 +155,29 @@ def make_graph():
 
 @app.route("/classes")
 def classes():
-    user_class = mongo.db.users.find_one(
+    user = mongo.db.users.find_one(
         {"username": session["user"]}
-    )["class"]
-    class_members = mongo.db.classes.find_one(
-        {"class_name": user_class}
-    )["member_names"]
-    students = mongo.db.students.find()
+    )
+    students = list(mongo.db.students.find(
+        {"class": user["class"]}
+    ))
+
+    questions_answered = []
+    questions_correct = []
+    for student in students:
+        answered = (student["questions_answered"], student["username"])
+        correct = (student["questions_correct"], student["username"])
+        questions_answered.append(answered)
+        questions_correct.append(correct)
+
+    questions_answered.sort(key=lambda x: x[0], reverse=True)
+    questions_correct.sort(key=lambda x: x[0], reverse=True)
+
     return render_template(
         "class.html",
-        students=students,
-        class_members=class_members
+        user=user,
+        questions_answered=questions_answered,
+        questions_correct=questions_correct,
         )
 
 
@@ -348,6 +360,7 @@ def register():
 
             student = {
                 "userId": new_user["_id"],
+                "username": new_user["username"],
                 "class": request.form.get("class"),
                 "questions_answered": 0,
                 "questions_correct": 0,

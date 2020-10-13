@@ -21,6 +21,9 @@
         <div class="container">
             <div class="row">
             <!--Display all questions the student has not answered and allow them to answer -->
+            {% if student.questions_unanswered|length == 0 and student.questions_incorrect_id|length == 0 %}
+                <h5 class="text-center">You have correctly ansswered all the currently available questions, please annoy your teacher to add more </h5>
+            {% endif %}
             {% if student.questions_unanswered|length > 0 %}
                 {% for id in student.questions_unanswered %}
                     {% for question in questions %}

@@ -1,10 +1,25 @@
 {% extends "base.html" %}
-{% block content %}
-    {% for student in students %}
-        {% for member in class_members %}
-            {% if student.class == member.class_name %}
-                <p>{{ member }} </p>
-            {% endif %}
-        {% endfor %}    
-    {% endfor %}
+{% block content %}  
+<h5 class="text-center"> Hello {{ user.first_name }} welcome to class {{ user.class }}'s page</h5>
+<p>Check the class leaderboards below to see how you rank among your fellow class mates and see who is doing the most revision!</p>
+<div class="container">
+    <div class="row">
+        <!--Leaderboard of Most Questions Answered-->
+        <div class="col-sm-12 col-md-6">
+        {% for item in questions_answered %}
+            username: {{ item[1] }} score: {{ item[0] }}<br>
+        {% endfor %}
+        </div>
+        <!--Leaderboard of Most Questions Correctly Answered-->
+        <div class="col-sm-12 col-md-6">
+        {% for item in questions_correct %}
+            username: {{ item[1] }} score: {{ item[0] }}<br>
+        {% endfor %}
+        </div>
+        <!--Member of class with highest working grade-->
+        <div class="col-sm-12 offset-lg-4 col-lg-4">
+        </div>
+    </div>
+</div> 
+
 {% endblock %}
