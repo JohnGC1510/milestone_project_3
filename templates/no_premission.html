@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block content %} 
+    <h4 class="text-center">You do not have permission to access this page. To return to your profile page please <a href="{{ url_for('profile', user=session['user']) }}">click Here</a></h4>
+{% endblock%}

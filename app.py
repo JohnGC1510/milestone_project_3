@@ -21,6 +21,13 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+def user_check():
+    if session["user"]:
+        return
+    else:
+        return render_template("not_user.html")
+
+
 @app.route("/")
 @app.route("/index")
 def index():
@@ -43,6 +50,7 @@ def profile(user):
 
 @app.route("/all_questions")
 def all_questions():
+    user_check()
     questions = list(mongo.db.questions.find())
     user = mongo.db.users.find_one(
             {"username": session["user"]})
@@ -67,7 +75,7 @@ def search():
 
 @app.route("/answer/<question_id>", methods=["GET", "POST"])
 def answer(question_id):
-    # check user logged in
+    user_check()
     userId = mongo.db.users.find_one(
         {"username": session["user"]}
         )["_id"]
@@ -120,7 +128,7 @@ def answer(question_id):
 
 @app.route("/make_graph")
 def make_graph():
-    # check user logged in (use function)
+    user_check()
     userId = mongo.db.users.find_one(
         {"username": session["user"]}
         )["_id"]
@@ -155,6 +163,7 @@ def make_graph():
 
 @app.route("/classes")
 def classes():
+    user_check()
     user = mongo.db.users.find_one(
         {"username": session["user"]}
     )
@@ -183,37 +192,43 @@ def classes():
 
 @app.route("/add_question", methods=["GET", "POST"])
 def add_question():
-    modules = mongo.db.modules.find()
-    if request.method == "POST":
-        question = {
-            "module_name": request.form.get("module_name").lower(),
-            "grade": request.form.get("grade"),
-            "question_name": request.form.get("question_name"),
-            "question": request.form.get("question"),
-            "method": request.form.get("method"),
-            "answer": request.form.get("answer"),
-            "author": session["user"]
-        }
-        mongo.db.questions.insert_one(question)
+    user_type = mongo.db.users.find_one(
+        {"username": session["user"]}
+    )["user_type"]
+    if user_type == "admin" or user_type == "teacher":
+        modules = mongo.db.modules.find()
+        if request.method == "POST":
+            question = {
+                "module_name": request.form.get("module_name").lower(),
+                "grade": request.form.get("grade"),
+                "question_name": request.form.get("question_name"),
+                "question": request.form.get("question"),
+                "method": request.form.get("method"),
+                "answer": request.form.get("answer"),
+                "author": session["user"]
+            }
+            mongo.db.questions.insert_one(question)
 
-        for module in modules:
-            if module["module_name"] == question.get("module_name"):
-                mongo.db.modules.update_one(
-                    {"module_name": module["module_name"]},
-                    {"$inc": {"total_questions": +1}}
+            for module in modules:
+                if module["module_name"] == question.get("module_name"):
+                    mongo.db.modules.update_one(
+                        {"module_name": module["module_name"]},
+                        {"$inc": {"total_questions": +1}}
+                    )
+            print(question["_id"])
+            students = mongo.db.students.find()
+            for student in students:
+                mongo.db.students.update_one(
+                    {"userId": student["userId"]},
+                    {"$addToSet": {"questions_unanswered": question["_id"]}}
                 )
-        print(question["_id"])
-        students = mongo.db.students.find()
-        for student in students:
-            mongo.db.students.update_one(
-                {"userId": student["userId"]},
-                {"$addToSet": {"questions_unanswered": question["_id"]}}
-            )
 
-        flash("question successfully added")
-        return redirect(url_for("profile", user=session["user"]))
+            flash("question successfully added")
+            return redirect(url_for("profile", user=session["user"]))
 
-    return render_template("add_question.html", modules=modules)
+        return render_template("add_question.html", modules=modules)
+    else:
+        return render_template("no_premission.html")
 
 
 @app.route("/edit_question/<question_id>", methods=["GET", "POST"])
@@ -283,23 +298,33 @@ def delete_question(question_id):
 
 @app.route("/manage_modules")
 def manage_modules():
-    # if user = admin
-    modules = mongo.db.modules.find()
-    return render_template("manage_modules.html", modules=modules)
-    # else return unauthorized template
+    user_type = mongo.db.users.find_one(
+        {"username": session["user"]}
+    )["user_type"]
+    if user_type == "admin":
+        modules = mongo.db.modules.find()
+        return render_template("manage_modules.html", modules=modules)
+    else:
+        return render_template("no_premission.html")
 
 
 @app.route("/add_module", methods=["GET", "POST"])
 def add_module():
-    if request.method == "POST":
-        module = {
-            "module_name": request.form.get("module_name").lower(),
-            "total_questions": 0
-        }
-        mongo.db.modules.insert_one(module)
-        return redirect(url_for("manage_modules"))
+    user_type = mongo.db.users.find_one(
+        {"username": session["user"]}
+    )["user_type"]
+    if user_type == "admin":
+        if request.method == "POST":
+            module = {
+                "module_name": request.form.get("module_name").lower(),
+                "total_questions": 0
+            }
+            mongo.db.modules.insert_one(module)
+            return redirect(url_for("manage_modules"))
 
-    return render_template("add_module.html")
+        return render_template("add_module.html")
+    else:
+        return render_template("no_premission.html")
 
 
 @app.route("/edit_module/<module_id>", methods=["GET", "POST"])

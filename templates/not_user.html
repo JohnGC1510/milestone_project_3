@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+    <h4> You need to be logged in to access this page. To log in <a href="{{ url_for('login') }}">click here</a></h4>
+    <h4> If you do not have an account and wish to create one please <a href="{{ url_for('register') }}"> click here</a></h4>
+{% endblock %}
