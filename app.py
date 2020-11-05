@@ -21,6 +21,31 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+def calc_working_grade(score):
+    if score >= 90:
+        current_grade = 9
+    elif score >= 80:
+        current_grade = 8
+    elif score >= 70:
+        current_grade = 7
+    elif score >= 60:
+        current_grade = 6
+    elif score >= 50:
+        current_grade = 5
+    elif score >= 40:
+        current_grade = 4
+    elif score >= 30:
+        current_grade = 3
+    elif score >= 20:
+        current_grade = 2
+    elif score >= 10:
+        current_grade = 1
+    else:
+        current_grade = "U"
+
+    return current_grade
+
+
 @app.route("/")
 @app.route("/index")
 def index():
@@ -41,6 +66,17 @@ def profile(user):
         student = mongo.db.students.find_one({"userId": user["_id"]})
         student_correct = student["questions_correct_id"]
         modules_array = []
+        if student["questions_answered"] > 0:
+            percentage_correct = (float(
+                student["questions_correct"])/float(
+                    student["questions_answered"]))*100
+            working_grade = calc_working_grade(percentage_correct)
+        else:
+            working_grade = 4
+        mongo.db.students.update_one(
+             {"userId": user["_id"]},
+             {"$set": {"current_grade": working_grade}}
+         )
         """
          Code below creates an array of tuples that couples the name of
          the module with the percentage of code that the student has answered
@@ -183,7 +219,7 @@ def make_graph():
         incorrect = total - correct
         correct_value = (correct/total)*100
         incorrect_value = (incorrect/total)*100
-        mongo.db.students.update_one(
+        mongo.db.students.update(
             {"userId": userId},
             {"$set": {"percentage_correct": correct_value}}
         )
