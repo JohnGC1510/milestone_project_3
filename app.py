@@ -21,13 +21,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-def user_check():
-    if session["user"]:
-        return
-    else:
-        return render_template("not_user.html")
-
-
 @app.route("/")
 @app.route("/index")
 def index():
@@ -41,24 +34,69 @@ def profile(user):
 
     questions = mongo.db.questions.find()
     if user["user_type"] == "student":
+        energy_correct = 0
+        particles_correct = 0
+        electricity_correct = 0
+        modules = mongo.db.modules.find()
         student = mongo.db.students.find_one({"userId": user["_id"]})
+        student_correct = student["questions_correct_id"]
+        modules_array = []
+        """
+         Code below creates an array of tuples that couples the name of
+         the module with the percentage of code that the student has answered
+         correctly in that  module to allow for automatically updating progress
+         bars. Issue with current code is that you will manually need to add
+         additional modules.
+        """
+        for question in questions:
+            for correct in student_correct:
+                if question["_id"] == correct:
+                    if question["module_name"] == "energy":
+                        energy_correct += 1
+                    if question["module_name"] == "electricity":
+                        electricity_correct += 1
+                    if question["module_name"] == "particles":
+                        particles_correct += 1
+        print("correct particles = " + str(particles_correct))
+        for module in modules:
+            if module["module_name"] == "energy":
+                energy_percent = (
+                    float(energy_correct)/float(module["total_questions"]))*100
+                modules_array.append(
+                    (module["module_name"], round(energy_percent, 2)))
+            if module["module_name"] == "electricity":
+                electric_percent = (
+                    float(electricity_correct)/float(
+                        module["total_questions"]))*100
+                modules_array.append(
+                    (module["module_name"], round(electric_percent, 2)))
+            if module["module_name"] == "particles":
+                particle_percent = (
+                    float(particles_correct)/float(
+                        module["total_questions"]))*100
+                modules_array.append(
+                    (module["module_name"], round(particle_percent, 2)))
+        print(modules_array)
         return render_template("profile.html", user=user, questions=questions,
-                               student=student)
+                               student=student, modules=modules_array)
 
     return render_template("profile.html", user=user, questions=questions)
 
 
 @app.route("/all_questions")
 def all_questions():
-    user_check()
+    # user_check()
+    
     questions = list(mongo.db.questions.find())
     user = mongo.db.users.find_one(
-            {"username": session["user"]})
+        {"username": session["user"]})
     student = mongo.db.students.find_one(
         {"userId": user["_id"]}
     )
     return render_template(
-        "all_questions.html", questions=questions, user=user, student=student)
+        "all_questions.html", questions=questions, user=user,
+        student=student
+        )
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -75,12 +113,12 @@ def search():
 
 @app.route("/answer/<question_id>", methods=["GET", "POST"])
 def answer(question_id):
-    user_check()
+    # user_check(session["user"])
     userId = mongo.db.users.find_one(
         {"username": session["user"]}
         )["_id"]
     student = mongo.db.students.find_one({"userId": userId})
-    student_answer = request.form.get("answer")
+    student_answer = request.form.get("answer").lower()
     question_answer = mongo.db.questions.find_one(
         {"_id": ObjectId(question_id)})["answer"]
     if student_answer == question_answer:
@@ -128,7 +166,6 @@ def answer(question_id):
 
 @app.route("/make_graph")
 def make_graph():
-    user_check()
     userId = mongo.db.users.find_one(
         {"username": session["user"]}
         )["_id"]
@@ -146,6 +183,10 @@ def make_graph():
         incorrect = total - correct
         correct_value = (correct/total)*100
         incorrect_value = (incorrect/total)*100
+        mongo.db.students.update_one(
+            {"userId": userId},
+            {"$set": {"percentage_correct": correct_value}}
+        )
         pie_chart = pygal.Pie(
             show_legend=False, margin=0, style=custom)
         pie_chart.add("Correct", correct_value)
@@ -163,7 +204,7 @@ def make_graph():
 
 @app.route("/classes")
 def classes():
-    user_check()
+    # user_check(session["user"])
     user = mongo.db.users.find_one(
         {"username": session["user"]}
     )
@@ -204,7 +245,7 @@ def add_question():
                 "question_name": request.form.get("question_name"),
                 "question": request.form.get("question"),
                 "method": request.form.get("method"),
-                "answer": request.form.get("answer"),
+                "answer": request.form.get("answer").lower(),
                 "author": session["user"]
             }
             mongo.db.questions.insert_one(question)

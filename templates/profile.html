@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <!--Teacher User-->
-    {% if user.user_type == "teacher" %}
+    <!--Teacher and Admin User-->
+    {% if (user.user_type == "teacher" or user.user_type == "admin") %}
         <div class="text-center">
         <h3>Hello {{ user.title }} {{user.surname }}<br>
             <a href="{{ url_for('add_question') }}">Click Here</a> to add a question
@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 {% for question in questions %}
-                    {% if question.author == session.user %}
+                    {% if (question.author == session.user and user.user_type == "teacher") %}
                         <div class="col-sm-6 d-inline-block">
                             <div class="card">
                                 <div class="card-body">
@@ -24,41 +24,8 @@
                                 </div>
                             </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
-    <!--Student User-->
-    {% if user.user_type == "student" %}
-        <h3 class="text-center"> Hello {{ user.first_name }} I hope you are ready to revise </h3>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-6 text-center">
-                    <h3> Current Percentage</h3>
-                    <figure>
-                        <embed type="image/svg+xml" src="{{ url_for('make_graph') }}" />
-                    </figure>
-                </div>
-                <div class="col-sm-12 col-md-6 text-center">
-                    <h3>Statistics</h3>
-                    <p> Total Questions Answered: {{ student.questions_answered }}<br>
-                        Questions Correctly Answered: {{ student.questions_correct }}<br>
-                        Current Working Grade: {{ student.current_grade }}
-                    </p>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-    <!--Admin User-->
-    {% if user.user_type == "admin" %}
-        <div class="text-center">
-            <h2>Adminstrator Account</h2>
-            <h3>Hello <a href="{{ url_for('add_question') }}">Click Here</a> to add a question</h3>
-        </div>
-        <div class="container">
-            <div class="row">
-                {% for question in questions %}
+                       {% endif %} 
+                    {% if user.user_type == "admin" %}
                         <div class="col-sm-6 d-inline-block">
                             <div class="card">
                                 <div class="card-body">
@@ -73,8 +40,59 @@
                                 </div>
                             </div>
                         </div>
+                    {% endif %}
+
                 {% endfor %}
             </div>
         </div>
+    {% endif %}
+    <!--Student User-->
+    {% if user.user_type == "student" %}
+        <h3 class="text-center"> Hello {{ user.first_name.capitalize() }} I hope you are ready to revise </h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 text-center">
+                    <h3> Current Percentage</h3>
+                    <figure>
+                        <embed type="image/svg+xml" src="{{ url_for('make_graph') }}" />
+                    </figure>
+                </div>
+                <div class="col-sm-12 col-md-6 text-center">
+                    <h3>Statistics</h3>
+                    <p> Total Questions Attempted: {{ student.questions_answered }}<br>
+                        Questions Correctly Answered: {{ student.questions_correct }}<br>
+                        Current Working Grade: {{ student.current_grade }}
+                    </p>
+                </div>
+            </div>
+        </div>
+	<div class="container progress-container">
+		<div class="row">
+			<div class="col-sm-12 offset-lg-2 col-lg-8">
+				{% for module in modules %}
+                {% if module[1] > 75 %}
+                <span class="progress-label">{{ module[0].capitalize() }}</span>
+                <div class="progress">
+					<div class="progress-bar bg-success" role="progressbar" style="width: {{ module[1] }}%" aria-valuenow="{{ module[1] }}"
+						aria-valuemin="0" aria-valuemax="100">{{ module[1] }}%</div>
+				</div>
+                {% elif module[1] > 25 %}
+                <div class="progress-label">{{ module[0].capitalize() }}</div>
+                    <div class="progress">
+					<div class="progress-bar bg-warning" role="progressbar" style="width: {{ module[1] }}%" aria-valuenow="{{ module[1] }}"
+						aria-valuemin="0" aria-valuemax="100">{{ module[1] }}%</div>
+				</div>
+                {% else %}
+                <div class="progress-label">{{ module[0].capitalize() }}</div>
+                    <div class="progress">
+					<div class="progress-bar bg-danger" role="progressbar" style="width: {{ module[1] }}%" aria-valuenow="{{ module[1] }}"
+						aria-valuemin="0" aria-valuemax="100">{{ module[1] }}%</div>
+				</div>
+                {% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
     {% endif %}
 {% endblock %}
