@@ -122,7 +122,7 @@ def profile(user):
 @app.route("/all_questions")
 def all_questions():
     # user_check()
-    
+
     questions = list(mongo.db.questions.find())
     user = mongo.db.users.find_one(
         {"username": session["user"]})
@@ -196,7 +196,6 @@ def answer(question_id):
             {"_id": student["_id"]},
             {"$pull": {"questions_unanswered": ObjectId(question_id)}}
         )
-
     return redirect(url_for('all_questions'))
 
 
