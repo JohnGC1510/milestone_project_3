@@ -209,7 +209,7 @@ def make_graph():
     total = float(student["questions_answered"])
     custom = Style(
         background="transparent",
-        colors=("#0D31C5", "#B4B5B7"),
+        colors=("#1EAC1E", "#EE0404"),
         opacity="0.6",
         opacity_hover="0.9"
     )
@@ -230,8 +230,7 @@ def make_graph():
     else:
         pie_chart = pygal.Pie(
             show_legend=False, margin=0, style=custom)
-        pie_chart.add("Correct (example)", 65)
-        pie_chart.add("Incorrect (example)", 35)
+        pie_chart.add("Correct (example)", 100)
         pie_chart.render()
 
     return pie_chart.render_response()

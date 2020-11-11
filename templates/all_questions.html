@@ -174,29 +174,4 @@
     <h3 class="text-center">No questions were found matching your search</h3>
     {% endif %}
 {% endif %}
-<!--       Teacher and admin view       -->
-{% if user.user_type == "teacher" or user.user_type == "admin" %}
-    {% if questions|length > 0 %}
-        <div class="container">
-            <div class="row">
-                {% for question in questions %}
-                        <div class="col-sm-6 d-inline-block">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ question.module_name }}: {{ question.question_name }}</h5>
-                                    <p class="card-text">question: {{ question.question }} <br>
-                                        method: {{ question.method }}<br>
-                                        answer: {{ question.answer }}<br>
-                                        author: {{question.author }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% else %}
-    <h3 class="text-center">No questions were found matching your search</h3>
-    {% endif %}
-{% endif %}
 {% endblock %}
