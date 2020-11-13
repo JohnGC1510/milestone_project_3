@@ -183,6 +183,25 @@
     text-align: left;
 }
 
+/*----------- All Questions -----------*/
+
+.question-name{
+    border-bottom: 2px solid black;
+    background-color: #c0cdc9;
+}
+
+.question{
+}
+
+.question-solution{
+
+}
+
+.question-container{
+    padding:0;
+    border: 2px solid black;
+    margin: 15px auto;
+}
 /*---------- Flash Messages --------------*/
 .flashes{
     background-color:aqua;

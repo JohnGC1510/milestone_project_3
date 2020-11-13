@@ -1,30 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="text-center"> All Questions </h2>
-<div class="container">
-<div class="row text-center">
-    <form action="{{ url_for('search') }}" method="POST" class="col-12">
-        <div class="d-inline-block">
-            <label for="query">Search Questions</label>
-            <input type="text" name="query" id="query" minlength="3" required>
+    <div class="container text-center">
+    {% for module in modules %}
+        <div class="module-title">
+        <h3>{{ module.module_name.capitalize() }} Questions</h3>
         </div>
-        <div class="d-inline-block">
-            <a href="{{ url_for('all_questions') }}" class="btn">Reset</a>
-            <button type="submit">Search</button>
-        </div>
-    </form>
-</div>
-</div>
-<!--     Student View     -->
-{% if user.user_type == "student" %}
-    {% if questions|length > 0 %}
-        <div class="container">
-            <div class="row">
-            {% if student.questions_unanswered|length == 0 and student.questions_incorrect_id|length == 0 %}
-                <h5 class="text-center">You have correctly answered all the currently available questions, please annoy your teacher to add more </h5>
-            {% endif %}
-            <!-- Loop through all questions -->
-            {% for question in questions %}
+        {% for question in questions %}
+            {% if module.module_name == question.module_name %}
                 <form action="{{ url_for('answer', question_id=question._id) }}" method="POST" class="question-container col-sm-12 offset-md-2 col-md-8 text-center">
                         <div class="question-name">
                             <h4> {{ question.question_name }} </h4>
@@ -40,14 +22,14 @@
                         {% endif %}
                         <!-- All questions correctly answered -->
                         {% if student.questions_unanswered|length == 0 and student.questions_incorrect_id|length == 0 and student.questions_correct_id|length > 0 %} 
-                            <div class="question-solution">
+                            <div class="question_solutions">
                                 {{ question.method }}<br>
                                 {{ question.answer }}
                             </div>
                         {% endif %}
                         <!-- All questions incorrectly answered -->
                         {% if student.questions_unanswered|length == 0 and student.questions_incorrect_id|length > 0 and student.questions_correct_id|length == 0 %} 
-                            <div class="question-solution">
+                            <div>
                                 {{ question.method }}<br>
                             </div>
                             <label for="answer">Answer</label>
@@ -141,37 +123,9 @@
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
-                    </form>        
-                {% endfor %}
-	        </div>
-        </div>
-    {% else %}
-    <h3 class="text-center">No questions were found matching your search</h3>
-    {% endif %}
-{% endif %}
-<!--       Teacher and admin view       -->
-{% if user.user_type == "teacher" or user.user_type == "admin" %}
-    {% if questions|length > 0 %}
-        <div class="container">
-            <div class="row">
-                {% for question in questions %}
-                        <div class="col-sm-6 d-inline-block">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ question.module_name }}: {{ question.question_name }}</h5>
-                                    <p class="card-text">question: {{ question.question }} <br>
-                                        method: {{ question.method }}<br>
-                                        answer: {{ question.answer }}<br>
-                                        author: {{question.author }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% else %}
-    <h3 class="text-center">No questions were found matching your search</h3>
-    {% endif %}
-{% endif %}
+                    </form>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    </div>
 {% endblock %}

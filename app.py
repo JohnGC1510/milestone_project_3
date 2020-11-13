@@ -371,6 +371,24 @@ def delete_question(question_id):
     return redirect(url_for("profile", user=session["user"]))
 
 
+@app.route("/modules")
+def modules():
+    questions = list(mongo.db.questions.find())
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})
+    student = mongo.db.students.find_one(
+        {"userId": user["_id"]}
+    )
+    modules = mongo.db.modules.find()
+    return render_template(
+        "modules.html",
+        user=user,
+        questions=questions,
+        modules=modules,
+        student=student
+        )
+
+
 @app.route("/manage_modules")
 def manage_modules():
     user_type = mongo.db.users.find_one(
