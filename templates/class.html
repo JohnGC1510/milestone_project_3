@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block content %}  
+{% block content %} 
+{% if user.user_type == "student" %} 
 <h5 class="text-center"> Hello {{ user.first_name }} welcome to class {{ user.class }}'s page</h5>
 <p>Check the class leaderboards below to see how you rank among your fellow class mates and see who is doing the most revision!</p>
 <div class="container">
@@ -21,5 +22,39 @@
         </div>
     </div>
 </div> 
+{% endif %}
+{% if user.user_type == "teacher" %}
+    <h4 class="text-center profile-header">Welcome to the class page for class {{ user.class.capitalize() }} </h4>
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-12 offset-lg-1 col-lg-10">
+    <table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Student Name</th>
+      <th scope="col">Questions Correct</th>
+      <th scope="col">Questions Answered</th>
+      <th scope="col">Percentage</th>
+      <th scope="col">Current Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students %}
+    <tr>
+      <th scope="row"> {{ student.username }}</th>
+      <td>{{ student.questions_correct }}</td>
+      <td>{{ student.questions_answered }}</td>
+      <td>{{ student.percentage_correct }}</td>
+      <td>{{ student.current_grade }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+{% endif %}
 
+{% if user.user_type == "admin" %}
+{% endif %}
 {% endblock %}

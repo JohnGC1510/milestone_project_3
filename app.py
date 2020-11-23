@@ -218,9 +218,10 @@ def make_graph():
         incorrect = total - correct
         correct_value = (correct/total)*100
         incorrect_value = (incorrect/total)*100
-        mongo.db.students.update(
+        percentage = round(correct_value, 1)
+        mongo.db.students.update_one(
             {"userId": userId},
-            {"$set": {"percentage_correct": correct_value}}
+            {"$set": {"percentage_correct": percentage}}
         )
         pie_chart = pygal.Pie(
             show_legend=False, margin=0, style=custom)
@@ -242,17 +243,21 @@ def classes():
     user = mongo.db.users.find_one(
         {"username": session["user"]}
     )
-    students = list(mongo.db.students.find(
+    students = mongo.db.students.find(
         {"class": user["class"]}
-    ))
+    )
 
+    print(students)
     questions_answered = []
     questions_correct = []
+    top_ten = 0
     for student in students:
-        answered = (student["questions_answered"], student["username"])
-        correct = (student["questions_correct"], student["username"])
-        questions_answered.append(answered)
-        questions_correct.append(correct)
+        if top_ten <= 9:
+            answered = (student["questions_answered"], student["username"])
+            correct = (student["questions_correct"], student["username"])
+            questions_answered.append(answered)
+            questions_correct.append(correct)
+            top_ten += 1
 
     questions_answered.sort(key=lambda x: x[0], reverse=True)
     questions_correct.sort(key=lambda x: x[0], reverse=True)
@@ -262,6 +267,7 @@ def classes():
         user=user,
         questions_answered=questions_answered,
         questions_correct=questions_correct,
+        students=students
         )
 
 
