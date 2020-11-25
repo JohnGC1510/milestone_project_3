@@ -1,43 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
-
 <div class="module_button_container">
 <a class="modules_button" href="{{ url_for('module_energy') }}">Energy</a>
 <a class="modules_button" href="{{ url_for('module_electrcity') }}">Electrcity</a>
-<a class="modules_button" href="{{ url_for('module_particles') }}">Particles</a>
+<a class="modules_button active" href="{{ url_for('module_particles') }}">Particles</a>
 </div>
-    
-    
-    <div class="container text-center">
-    {% for module in modules %}
-        <div class="module-title">
-        <h3>{{ module.module_name.capitalize() }} Questions</h3>
-        </div>
-        {% for question in questions %}
-            {% if module.module_name == question.module_name %}
+
+{% for question in questions %}
                 <form action="{{ url_for('answer', question_id=question._id) }}" method="POST" class="question-container col-sm-12 offset-md-2 col-md-8 text-center">
-                        <div class="question-name">
+                        <div class="question-name ">
                             <h4> {{ question.question_name }} </h4>
                         </div>
-                        <div class="question">
+                        <div class="question hidden">
                             {{ question.question }} <br>
                         </div>
                         <!-- All questions unanswered -->
                         {% if student.questions_unanswered|length > 0 and student.questions_incorrect_id|length == 0 and student.questions_correct_id|length == 0 %} 
-                            <label for="answer">Answer</label>
-                            <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
-                            <button type="submit">Check</button>
+                            <div class="hidden">
+                                <label for="answer">Answer</label>
+                                <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
+                                <button type="submit">Check</button>
+                            </div>
                         {% endif %}
                         <!-- All questions correctly answered -->
                         {% if student.questions_unanswered|length == 0 and student.questions_incorrect_id|length == 0 and student.questions_correct_id|length > 0 %} 
-                            <div class="question_solutions">
+                            <div class="question-solution">
                                 {{ question.method }}<br>
                                 {{ question.answer }}
                             </div>
                         {% endif %}
                         <!-- All questions incorrectly answered -->
                         {% if student.questions_unanswered|length == 0 and student.questions_incorrect_id|length > 0 and student.questions_correct_id|length == 0 %} 
-                            <div>
+                            <div class="question-solution">
                                 {{ question.method }}<br>
                             </div>
                             <label for="answer">Answer</label>
@@ -49,18 +43,21 @@
                             {% for incorrect_id in student.questions_incorrect_id %}
                                 {% for correct_id in student.questions_correct_id %}
                                     {% if incorrect_id == question._id %}
-                                        <div class="method">
-                                            Method: {{ question.method }}
-                                        </div>
-                                        <label for="answer">Answer</label>
-                                        <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
-                                        <button type="submit">Check</button>
-                                        }
+                                        <div>   
+                                            <div class="method">
+                                                Method: {{ question.method }}
+                                            </div>
+                                            <label for="answer">Answer</label>
+                                            <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
+                                            <button type="submit">Check</button>
+                                        </div> 
                                     {% elif correct_id == question._id %} 
-                                        <div class="method">
-                                            Method: {{ question.method }} <br>
-                                            Answer: {{ question.answer }}
-                                        </div>
+                                        <div>  
+                                            <div class="method">
+                                                Method: {{ question.method }} <br>
+                                                Answer: {{ question.answer }}
+                                            </div>
+                                        </div>  
                                     {% endif %}
                                 {% endfor %}
                             {% endfor %}
@@ -77,9 +74,11 @@
                             {% endfor %}
                             {% for unanswered_id in student.questions_unanswered %}                                        
                                 {% if unanswered_id == question._id %}
-                                    <label for="answer">Answer</label>
-                                    <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
-                                    <button type="submit">Check</button>
+                                    <div class="hidden">
+                                        <label for="answer">Answer</label>
+                                        <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
+                                        <button type="submit">Check</button>
+                                    </div>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -89,17 +88,20 @@
                                 {% if incorrect_id == question._id %} 
                                     <div class="method">
                                         Method: {{ question.method }} <br>
-                                    </div>
+                                    
                                     <label for="answer">Answer</label>
                                     <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
                                     <button type="submit">Check</button>
+                                    </div>
                                 {% endif %}
                             {% endfor %}
                             {% for unanswered_id in student.questions_unanswered %}                                        
                                 {% if unanswered_id == question._id %}
-                                    <label for="answer">Answer</label>
-                                    <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
-                                    <button type="submit">Check</button>
+                                    <div class="hidden">
+                                        <label for="answer">Answer</label>
+                                        <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
+                                        <button type="submit">Check</button>
+                                    </div>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -117,23 +119,22 @@
                                 {% if incorrect_id == question._id %} 
                                     <div class="method">
                                         Method: {{ question.method }} <br>
+                                        <label for="answer">Answer</label>
+                                        <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
+                                        <button type="submit">Check</button>
                                     </div>
-                                    <label for="answer">Answer</label>
-                                    <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
-                                    <button type="submit">Check</button>
                                 {% endif %}
                             {% endfor %}
                             {% for unanswered_id in student.questions_unanswered %}                                        
                                 {% if unanswered_id == question._id %}
-                                    <label for="answer">Answer</label>
-                                    <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
-                                    <button type="submit">Check</button>
+                                    <div class="hidden">
+                                        <label for="answer">Answer</label>
+                                        <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
+                                        <button type="submit">Check</button>
+                                    </div>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
-                    </form>
-            {% endif %}
-        {% endfor %}
-    {% endfor %}
-    </div>
+                    </form>        
+                {% endfor %}
 {% endblock %}

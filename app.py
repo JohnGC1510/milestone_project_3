@@ -243,9 +243,9 @@ def classes():
     user = mongo.db.users.find_one(
         {"username": session["user"]}
     )
-    students = mongo.db.students.find(
+    students = list(mongo.db.students.find(
         {"class": user["class"]}
-    )
+    ).sort([("surname", 1)]))
 
     print(students)
     questions_answered = []
@@ -395,6 +395,57 @@ def modules():
         )
 
 
+@app.route("/module_energy")
+def module_energy():
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})
+    student = mongo.db.students.find_one(
+        {"userId": user["_id"]}
+    )
+    questions = list(mongo.db.questions.find(
+        {"module_name": "energy"}
+    ))
+    return render_template(
+        "module_energy.html",
+        questions=questions,
+        student=student
+        )
+
+
+@app.route("/module_electrcity")
+def module_electrcity():
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})
+    student = mongo.db.students.find_one(
+        {"userId": user["_id"]}
+    )
+    questions = list(mongo.db.questions.find(
+        {"module_name": "electricity"}
+    ))
+    return render_template(
+        "module_electricity.html",
+        questions=questions,
+        student=student
+        )
+
+
+@app.route("/module_particles")
+def module_particles():
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})
+    student = mongo.db.students.find_one(
+        {"userId": user["_id"]}
+    )
+    questions = list(mongo.db.questions.find(
+        {"module_name": "particles"}
+    ))
+    return render_template(
+        "module_particles.html",
+        questions=questions,
+        student=student
+        )
+
+
 @app.route("/manage_modules")
 def manage_modules():
     user_type = mongo.db.users.find_one(
@@ -485,6 +536,8 @@ def register():
             student = {
                 "userId": new_user["_id"],
                 "username": new_user["username"],
+                "first_name": request.form.get("first_name").lower(),
+                "surname": request.form.get("surname").lower(),
                 "class": request.form.get("class"),
                 "questions_answered": 0,
                 "questions_correct": 0,

@@ -1,21 +1,67 @@
 {% extends "base.html" %}
 {% block content %} 
 {% if user.user_type == "student" %} 
-<h5 class="text-center"> Hello {{ user.first_name }} welcome to class {{ user.class }}'s page</h5>
-<p>Check the class leaderboards below to see how you rank among your fellow class mates and see who is doing the most revision!</p>
+<h5 class="text-center profile-header"> Hello {{ user.first_name.capitalize() }} welcome to class {{ user.class.capitalize() }}'s page <br><br>
+Check out the class leaderboards below to see if you have made it into the top 10 of your class!
+</h5>
+
 <div class="container">
     <div class="row">
         <!--Leaderboard of Most Questions Answered-->
         <div class="col-sm-12 col-md-6">
-        {% for item in questions_answered %}
-            username: {{ item[1] }} score: {{ item[0] }}<br>
+        <h4 class="text-center">Total Questions Answered Leaderboard</h4>
+        <table class="table table-sm table-bordered">
+            <thead class="thead-light">
+                <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Score</th>
+                </tr>
+            </thead>
+               <tbody>
+        {% for item in questions_answered %} 
+         
+                <tr>
+                {% if item[1] == user.username %}
+                <th scope="row" class="table-info">{{ item[1] }}</th>
+                <td scope="table" class="table-info">{{ item[0] }}</td>
+                {% else %}
+                <th scope="row">{{ item[1] }}</th>
+                <td>{{ item[0] }}</td>
+                {% endif %}
+                </tr>
+            
+            
         {% endfor %}
+        </tbody>
+        </table>
         </div>
         <!--Leaderboard of Most Questions Correctly Answered-->
         <div class="col-sm-12 col-md-6">
-        {% for item in questions_correct %}
-            username: {{ item[1] }} score: {{ item[0] }}<br>
+        <h4 class="text-center">Most Questions Correctly Answered</h4>
+        <table class="table table-sm table-bordered">
+            <thead class="thead-light">
+                <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for item in questions_correct %} 
+            
+                <tr>
+                {% if item[1] == user.username %}
+                <th scope="row" class="table-info">{{ item[1] }}</th>
+                <td scope="table" class="table-info">{{ item[0] }}</td>
+                {% else %}
+                <th scope="row">{{ item[1] }}</th>
+                <td>{{ item[0] }}</td>
+                {% endif %}
+                </tr>
+            
+            
         {% endfor %}
+        </tbody>
+        </table>
         </div>
         <!--Member of class with highest working grade-->
         <div class="col-sm-12 offset-lg-4 col-lg-4">
@@ -41,7 +87,7 @@
   <tbody>
     {% for student in students %}
     <tr>
-      <th scope="row"> {{ student.username }}</th>
+      <th scope="row"> {{ student.first_name.capitalize()  }} {{ student.surname.capitalize() }}</th>
       <td>{{ student.questions_correct }}</td>
       <td>{{ student.questions_answered }}</td>
       <td>{{ student.percentage_correct }}</td>

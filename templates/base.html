@@ -32,7 +32,7 @@
                                 <li class="nav-item"><a class="btn" href="{{ url_for('all_questions') }}">All Questions</a></li>
                                 {% if session.user != "admin" %}
                                 <li class="nav-item"><a class="btn" href="{{ url_for('classes') }}">Class</a></li>
-                                <li class="nav-item"><a class="btn" href="{{ url_for('modules') }}">Modules</a></li>
+                                <li class="nav-item"><a class="btn" href="{{ url_for('module_energy') }}">Modules</a></li>
                                 {% endif %}
                                 {% if session.user == "admin" %}
                                     <li class="nav-item"><a class="btn" href="{{ url_for('manage_modules') }}">Manage Modules</a></li>
