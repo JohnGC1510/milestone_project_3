@@ -382,58 +382,6 @@ def delete_question(question_id):
     return redirect(url_for("profile", user=session["user"]))
 
 
-@app.route("/modules")
-def modules():
-    questions = list(mongo.db.questions.find())
-    user = mongo.db.users.find_one(
-        {"username": session["user"]})
-    student = mongo.db.students.find_one(
-        {"userId": user["_id"]}
-    )
-    modules = mongo.db.modules.find()
-    return render_template(
-        "modules.html",
-        user=user,
-        questions=questions,
-        modules=modules,
-        student=student
-        )
-
-
-@app.route("/module_energy")
-def module_energy():
-    user = mongo.db.users.find_one(
-        {"username": session["user"]})
-    student = mongo.db.students.find_one(
-        {"userId": user["_id"]}
-    )
-    questions = list(mongo.db.questions.find(
-        {"module_name": "energy"}
-    ))
-    return render_template(
-        "module_energy.html",
-        questions=questions,
-        student=student
-        )
-
-
-@app.route("/module_electrcity")
-def module_electrcity():
-    user = mongo.db.users.find_one(
-        {"username": session["user"]})
-    student = mongo.db.students.find_one(
-        {"userId": user["_id"]}
-    )
-    questions = list(mongo.db.questions.find(
-        {"module_name": "electricity"}
-    ))
-    return render_template(
-        "module_electricity.html",
-        questions=questions,
-        student=student
-        )
-
-
 @app.route("/module/<module_name>")
 def module(module_name):
     user = mongo.db.users.find_one(
@@ -444,28 +392,12 @@ def module(module_name):
     questions = list(mongo.db.questions.find(
         {"module_name": module_name}
     ))
+    modules = mongo.db.modules.find()
     return render_template(
         "module.html",
         questions=questions,
         student=student,
-        module=module_name
-        )
-
-
-@app.route("/module_particles")
-def module_particles():
-    user = mongo.db.users.find_one(
-        {"username": session["user"]})
-    student = mongo.db.students.find_one(
-        {"userId": user["_id"]}
-    )
-    questions = list(mongo.db.questions.find(
-        {"module_name": "particles"}
-    ))
-    return render_template(
-        "module_particles.html",
-        questions=questions,
-        student=student
+        modules=modules
         )
 
 
