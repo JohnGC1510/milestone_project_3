@@ -13,6 +13,8 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
+""" DEBUG = if ("DEVELOPMENT" in os.environ) True else False """
+
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
@@ -54,6 +56,9 @@ def index():
 
 @app.route("/profile/<user>")
 def profile(user):
+    """
+    Function description
+    """
     user = mongo.db.users.find_one(
             {"username": session["user"]})
 
@@ -429,6 +434,24 @@ def module_electrcity():
         )
 
 
+@app.route("/module/<module_name>")
+def module(module_name):
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})
+    student = mongo.db.students.find_one(
+        {"userId": user["_id"]}
+    )
+    questions = list(mongo.db.questions.find(
+        {"module_name": module_name}
+    ))
+    return render_template(
+        "module.html",
+        questions=questions,
+        student=student,
+        module=module_name
+        )
+
+
 @app.route("/module_particles")
 def module_particles():
     user = mongo.db.users.find_one(
@@ -596,7 +619,6 @@ def logout():
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("login"))
-
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
