@@ -274,6 +274,52 @@
     margin-bottom: 15px;
 }
 
+/*---------- Media Commands --------------*/
+
+@media only screen and (max-width: 1440px) {
+
+    .hero-container{
+        height:600px;
+    }
+
+
+    .call-to-action{
+        width:200px;
+    }
+
+}
+@media only screen and (max-width: 1024px) {
+
+    .hero-container{
+        height:450px;
+    }
+
+
+    .call-to-action{
+        width:200px;
+    }
+
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    .hero-container{
+        height:300px;
+    }
+
+    .hero-text{
+        top:20%;
+    }
+
+    .call-to-action{
+        width:200px;
+    }
+
+}
+
+
+
 
 @media only screen and (max-width: 576px) {
     .modules_button{
