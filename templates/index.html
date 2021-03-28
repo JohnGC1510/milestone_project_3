@@ -3,16 +3,17 @@
 	<div class="hero-container">
 		<img src="{{ url_for('static', filename='images/hero.jpg') }}" id="hero-img"/>
 		<div class="hero-text text-center">
-			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam tempore at eius fugiat debitis necessitatibus
-				soluta deleniti pariatur velit minus enim repudiandae, nam voluptas blanditiis libero eaque culpa dolore
-				est?</p>
+            <p class="d-none d-lg-block">Struggling with GCSE physics? Sign Up to Pass Physics today to drastically improve your chances of getting the grade you deserve!</p>
+            <p class="d-sm-block d-lg-none small-hero">
+                Improve your chances to pass your Physics GCSE!
+            </p>
 			<a class="call-to-action" href="{{ url_for('register') }}">Sign Up</a>
 		</div>
 	</div>
 	
 	<div class="col-12 text-center">
-		<h2>Why Choose Us?</h2>
-		<hr>
+		<h2 class="h2_header">Why Choose Us?</h2>
+		<hr class="short-hr">
 	</div>
 	
 	<div class="container benefits-container">
@@ -22,17 +23,13 @@
 		    </div>
 			<div class="col-sm-12 col-md-7 benefits-txt">
 				<h4>Student Benefits</h4>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quis aliquid reiciendis omnis,
-					ad vero expedita perferendis similique odit mollitia? Id nihil illum cupiditate eum soluta quae
-					fugiat voluptate repudiandae?</p>
+				<p>Pass Physics offers a large database of exam style questions for you to answer from all GCSE physics modules; it allows you to track your progress, assists you when you are struggling and lets you compete against fellow students!</p>
 			</div>
 		</div>
 			<div class="row text-center benefits-item">
 				<div class="col-sm-12 col-md-7 benefits-txt">
 					<h4>Teacher Benefits</h4>
-					<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae laboriosam sunt facilis unde
-						aliquam veritatis deleniti esse ipsa alias quasi earum ut, officiis doloribus porro ipsam quae
-						hic error ratione?</p>
+					<p>A teacher with a class on pass physics will have access to a large set of revison questions for homework, tools to monitor how your class is performing, as well as the ability to add your own questions to our database to better suit your class!</p>
 				</div>
 				<div class="col-sm-12 col-md-5 benefits-img">
 					<img src="{{ url_for('static', filename='images/teaching.jpg') }}">
@@ -40,8 +37,8 @@
 			</div>
     </div>
 
-    <h2 class="text-center">Testimonials</h2>
-    <hr>
+    <h2 class="text-center h2_header">Testimonials</h2>
+    <hr class="short-hr">
 
     	<div class="container testimonial-container">
         <div class="row text-center testimonial-item">
@@ -50,17 +47,13 @@
 		    </div>
 			<div class="col-sm-12 col-md-7 testimonial-txt">
 				<h4>Brian Cox</h4>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quis aliquid reiciendis omnis,
-					ad vero expedita perferendis similique odit mollitia? Id nihil illum cupiditate eum soluta quae
-					fugiat voluptate repudiandae?</p>
+				<p>"I would highly recommend you use pass physics with your GCSE clases, it enabled them to practice a lot of realistic exam style questions and recieve instant feedback on their answers. As a bonus it massively reduced my marking load as the questions mark themself!"</p>
 			</div>
 		</div>
 			<div class="row text-center testimonial-item">
 				<div class="col-sm-12 col-md-7 testimonial-txt">
 					<h4>John Smith</h4>
-					<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae laboriosam sunt facilis unde
-						aliquam veritatis deleniti esse ipsa alias quasi earum ut, officiis doloribus porro ipsam quae
-						hic error ratione?</p>
+					<p>"I really enjoyed using Pass Physics and it definetly helped me get the A I wanted! I was able to compete agaisnt my friends to be the top fo the class leaderboard and this encourage dme to keep coming back to try more questions"</p>
 				</div>
 				<div class="col-sm-12 col-md-5 testimonial-img">
 					<img src="{{ url_for('static', filename='images/student.jpg') }}">
