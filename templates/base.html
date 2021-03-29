@@ -25,7 +25,18 @@
                 </div>
                 <!--NavBar-->
                 <div class="col-4">
-                    <nav class="navbar navbar-light">
+                    <nav class="navbar navbar-light navbar-expand-sm">
+                        <button
+                    class="navbar-toggler ml-auto"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown"
+                    aria-expanded="false"
+                  >
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                    <div class="navbar-collapse collapse" id="navbarNavDropdown">
                         <ul class="nav-bar nav">
                             {% if session.user %}
                                 <li class="nav-item"><a class="btn" href="{{ url_for('profile', user=session['user']) }}">Home</a></li>
@@ -44,6 +55,7 @@
                                 <li class="nav-item"><a class="btn" href="{{ url_for('register') }}">Sign Up</a></li>
                             {% endif %}
                         </ul>
+                    </div>
                     </nav>
                 </div>
             </div>
