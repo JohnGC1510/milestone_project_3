@@ -95,6 +95,26 @@ h6 {
     border-bottom:6px solid #c0cdc9;
     margin:15px auto;
 }
+
+/*-------- Buttons ------------*/
+.search-btn{
+    background-color: #c0cdc9;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    height:90%;
+    border-radius: 33%;
+    transition: all 0.5s ease-in-out;
+}
+
+.search-btn:hover{
+    border: 2px solid black;
+    color: whitesmoke;
+}
+
+.btn-form{
+    margin: 15px auto; 
+}
+
 /*-------- Index Page ----------*/
 .hero-container{
     position: relative;
@@ -198,7 +218,7 @@ h6 {
 
 .login-form-container{
     text-align: center;
-    margin-top:300px;    
+    margin-top:250px;    
 }
 
 .register-form-container{
@@ -214,6 +234,14 @@ h6 {
     margin: 15px auto;
     width:100%;
 }
+
+.question-text-area{
+    margin-top:15px;
+    margin-bottom: 10px;
+}
+
+
+
 
 /*------------- Profile Page Student ----------*/  
 .profile-header{
@@ -271,6 +299,11 @@ h6 {
 
 }
 
+/*----------- Admin Profile ----------*/
+
+.module-card{
+    height:125px;
+}
 /*----------- All Questions -----------*/
 
 .question-name{
@@ -335,6 +368,16 @@ h6 {
 
 /*---------- Media Commands --------------*/
 
+@media only screen and (max-width: 1920px) {
+    .register-form-container{
+        margin-top: 100px;
+    }
+
+    .login-form-container{
+        margin-top: 175px;
+    }
+}
+
 @media only screen and (max-width: 1440px) {
 
     .hero-container{
@@ -356,7 +399,7 @@ h6 {
 
 }
 
-}
+
 @media only screen and (max-width: 1024px) {
 
     .hero-container{
@@ -462,5 +505,20 @@ h6 {
     .register-form-container{
     margin-top:0px;
     }
+
+    .search-btn{
+        margin-top:10px;
+        height:auto;
+    }
 }
 
+@media only screen and (max-width: 360px) {
+    #logo{
+        max-width: 80px;
+        max-height: 80px;
+    }
+
+    .login-form-container{
+        margin-top: 50px;
+    }
+}

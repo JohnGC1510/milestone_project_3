@@ -21,7 +21,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 
 mongo = PyMongo(app)
-    
+
 
 def calc_working_grade(score):
     if score >= 90:
@@ -149,8 +149,13 @@ def search():
     ))
     user = mongo.db.users.find_one(
             {"username": session["user"]})
+    student = mongo.db.students.find_one(
+        {"userId": user["_id"]}
+    )
     return render_template(
-        "all_questions.html", questions=questions, user=user)
+        "all_questions.html", questions=questions, user=user,
+        student=student
+        )
 
 
 @app.route("/answer/<question_id>", methods=["GET", "POST"])
@@ -279,6 +284,9 @@ def classes():
 
 @app.route("/add_question", methods=["GET", "POST"])
 def add_question():
+    if "user" not in session:
+        return render_template("not_user.html")
+
     user_type = mongo.db.users.find_one(
         {"username": session["user"]}
     )["user_type"]
@@ -396,10 +404,11 @@ def module(module_name):
     modules = mongo.db.modules.find()
     return render_template(
         "module.html",
+        user=user,
         questions=questions,
         student=student,
         modules=modules,
-        module_name=module_name
+        mod_name=module_name
         )
 
 

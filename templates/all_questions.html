@@ -9,9 +9,9 @@
             <input type="text" name="query" id="query" minlength="3" required>
         </div>
         <div class="d-inline-block">
-            <a href="{{ url_for('all_questions') }}" class="btn">Reset</a>
-            <button type="submit">Search</button>
+             <button class="btn search-btn" type="submit">Search</button>
         </div>
+        <a href="{{ url_for('all_questions') }}" class="btn search-btn">Reset</a>
     </form>
 </div>
 </div>

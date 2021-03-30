@@ -5,7 +5,7 @@
 Check out the class leaderboards below to see if you have made it into the top 10 of your class!
 </h5>
 
-<div class="container">
+<div class="container push-footer">
     <div class="row">
         <!--Leaderboard of Most Questions Answered-->
         <div class="col-sm-12 col-md-6">
@@ -71,9 +71,9 @@ Check out the class leaderboards below to see if you have made it into the top 1
 {% endif %}
 {% if user.user_type == "teacher" %}
     <h4 class="text-center profile-header">Welcome to the class page for class {{ user.class.capitalize() }} </h4>
-    <div class="container">
+    <div class="container push-footer">
     <div class="row">
-    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+    <div class=" table-responsive offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
     <table class="table table-hover table-bordered">
   <thead>
     <tr>
