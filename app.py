@@ -21,7 +21,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 
 mongo = PyMongo(app)
-
+    
 
 def calc_working_grade(score):
     if score >= 90:
@@ -126,7 +126,8 @@ def profile(user):
 
 @app.route("/all_questions")
 def all_questions():
-    # user_check()
+    if "user" not in session:
+        return render_template("not_user.html")
 
     questions = list(mongo.db.questions.find())
     user = mongo.db.users.find_one(
@@ -397,7 +398,8 @@ def module(module_name):
         "module.html",
         questions=questions,
         student=student,
-        modules=modules
+        modules=modules,
+        module_name=module_name
         )
 
 

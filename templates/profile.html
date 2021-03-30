@@ -2,7 +2,8 @@
 {% block content %}
     <!--Teacher and Admin User-->
     {% if (user.user_type == "teacher" or user.user_type == "admin") %}
-        <div class="text-center">
+    <div class="push-footer">  
+    <div class="text-center">
         <h3>Hello {{ user.title.capitalize() }} {{user.surname.capitalize() }}<br>
             <a href="{{ url_for('add_question') }}">Click Here</a> to add a question
         </h3>
@@ -11,9 +12,9 @@
             <div class="row">
                 {% for question in questions %}
                     {% if (question.author == session.user and user.user_type == "teacher") %}
-                        <div class="col-sm-6 d-inline-block">
+                        <div class="col-sm-6 d-inline-block question-card-container">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-body question-card">
                                     <h5 class="card-title">{{ question.question_name }}</h5>
                                     <p class="card-text">question: {{ question.question }} <br>
                                         method: {{ question.method }}<br>
@@ -45,9 +46,11 @@
                 {% endfor %}
             </div>
         </div>
+        </div>  
     {% endif %}
     <!--Student User-->
     {% if user.user_type == "student" %}
+    <div class="push-footer">
         <h3 class="text-center profile-header"> Hello {{ user.first_name.capitalize() }} I hope you are ready to revise.<br>
             The data below gives you an idea of how you are currenlty progressing in physics!</h3> 
         </h3>
@@ -84,6 +87,6 @@
 			</div>
 		</div>
 	</div>
-
+</div>
     {% endif %}
 {% endblock %}

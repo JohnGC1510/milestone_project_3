@@ -12,20 +12,31 @@ div {
     padding:0;
     margin:0;
 }
-
+/*--------- Push footer to bottom of page ------------*/
 body{
     font-family: "Lato", sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Raleway", sans-serif;
+html, body {
+    width: 100%;
+    height: 100%;
 }
 
+article {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    
+}
+
+header, .main-content, footer {
+    flex-shrink: 0;
+}
+
+.push-footer{
+    flex-grow: 1;
+}
 /*--------- Colours ------------*/
 .silver-bg-color{
     background-color:#c0cdc9;
@@ -59,6 +70,15 @@ h6 {
 }
 
 /*-------- Headers ---------*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif;
+}
 
 .h1_header{
     margin: 20px 0px;
@@ -171,11 +191,21 @@ h6 {
     border-radius: 10%;
 }
 /*---------- Forms ----------*/
-.form-container{
-    justify-content: center;
-    text-align: center;
+.form-content{
+    flex-grow: 1;
     background-color: lightskyblue;
 }
+
+.login-form-container{
+    text-align: center;
+    margin-top:300px;    
+}
+
+.register-form-container{
+    text-align: center;
+    margin-top: 200px;
+}
+
 .register-item{
     width:100%;
 }
@@ -229,6 +259,18 @@ h6 {
     text-align: left;
 }
 
+/*---------- Profile Teacher -----------*/
+
+.question-card-container{
+    margin:20px auto;
+}
+
+.question-card{
+    overflow: auto;
+    height: 250px;
+
+}
+
 /*----------- All Questions -----------*/
 
 .question-name{
@@ -255,16 +297,12 @@ h6 {
 
 /*------------ Modules Page-----------*/
 .modules_button{
-    width:200px;
-    padding:0;
-    margin:0;
-    align-items: center;
-    justify-content: center;
-    display: inherit;
-    border-right:2px solid black;
+    width:100%;
+    height:100%;
     font-size:24px;
     color:black;
     transition: all 0.5s ease-in-out;
+    margin: auto auto;
 }
 
 .modules_button:hover{
@@ -280,16 +318,13 @@ h6 {
 }
 
 .module_button_container{
-    width: 600px;
     height:100px;
-    border-top:2px solid black;
-    border-bottom: 2px solid black;
-    border-left:2px solid black;
+    border:2px solid black;
     margin: 10px auto;
     background-color: #c0cdc9;
-    display: flex;
     padding:0;
-    border-radius:1%;
+    display:flex;
+    text-align: center;
 }
 /*---------- Flash Messages --------------*/
 .flashes{
@@ -310,6 +345,16 @@ h6 {
     .call-to-action{
         width:200px;
     }
+
+    .login-form-container{
+        margin-top:100px;    
+}
+
+    .register-form-container{   
+        margin-top: 50px;
+    }
+
+}
 
 }
 @media only screen and (max-width: 1024px) {
@@ -338,6 +383,14 @@ h6 {
 
     .call-to-action{
         width:200px;
+    }
+
+    .login-form-container{
+        margin-top:200px;    
+}
+
+    .register-form-container{   
+        margin-top: 100px;
     }
 
 }
@@ -397,6 +450,17 @@ h6 {
     .data-para{
         font-size: 16px;
     }
+
+    nav .btn{
+        font-size:12px;
+    }
+
+    .login-form-container{
+    margin-top:150px;    
+    }
+
+    .register-form-container{
+    margin-top:0px;
+    }
 }
 
-}

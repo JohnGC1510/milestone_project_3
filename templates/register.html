@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container-fluid form-container">
+<div class="container-fluid form-content">
+    <div class="register-form-container">
 <h2 class="text-center"> Sign Up </h2>
 <div class="row"> 
     <form class="col-sm-12 offset-md-2 col-md-8 offset-lg-4 col-lg-4" method="POST" action="{{ url_for('register') }}">
@@ -67,7 +68,7 @@
         </div>
   </div>
 </form>
-
+</div>
 </div>
 </div>
 {% endblock %}
