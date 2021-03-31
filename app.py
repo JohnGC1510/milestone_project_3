@@ -59,6 +59,9 @@ def profile(user):
     """
     Function description
     """
+    if "user" not in session:
+        return render_template("not_user.html")
+
     user = mongo.db.users.find_one(
             {"username": session["user"]})
 
@@ -67,6 +70,7 @@ def profile(user):
         energy_correct = 0
         particles_correct = 0
         electricity_correct = 0
+        radioactivity_correct = 0
         modules = mongo.db.modules.find()
         student = mongo.db.students.find_one({"userId": user["_id"]})
         student_correct = student["questions_correct_id"]
@@ -98,26 +102,42 @@ def profile(user):
                         electricity_correct += 1
                     if question["module_name"] == "particles":
                         particles_correct += 1
-        print("correct particles = " + str(particles_correct))
+                    if question["module_name"] == "radioactivity":
+                        radioactivity_correct += 1
         for module in modules:
-            if module["module_name"] == "energy":
+            if (module["module_name"] == "energy" and module[
+                    "total_questions"] > 0):
                 energy_percent = (
                     float(energy_correct)/float(module["total_questions"]))*100
+                if energy_percent > 100:
+                    energy_percent == 100
                 modules_array.append(
                     (module["module_name"], round(energy_percent, 2)))
-            if module["module_name"] == "electricity":
+
+            if (module["module_name"] == "electricity" and
+                    module["total_questions"] > 0):
                 electric_percent = (
                     float(electricity_correct)/float(
                         module["total_questions"]))*100
                 modules_array.append(
                     (module["module_name"], round(electric_percent, 2)))
-            if module["module_name"] == "particles":
+
+            if (module["module_name"] == "particles" and
+                    module["total_questions"] > 0):
                 particle_percent = (
                     float(particles_correct)/float(
                         module["total_questions"]))*100
                 modules_array.append(
                     (module["module_name"], round(particle_percent, 2)))
-        print(modules_array)
+
+            if (module["module_name"] == "radioactivity" and
+                    module["total_questions"] > 0):
+                radioactivity_percent = (
+                    float(radioactivity_correct)/float(
+                        module["total_questions"]))*100
+                modules_array.append(
+                    (module["module_name"], round(radioactivity_percent, 2)))
+
         return render_template("profile.html", user=user, questions=questions,
                                student=student, modules=modules_array)
 
@@ -230,6 +250,7 @@ def make_graph():
         correct_value = (correct/total)*100
         incorrect_value = (incorrect/total)*100
         percentage = round(correct_value, 1)
+
         mongo.db.students.update_one(
             {"userId": userId},
             {"$set": {"percentage_correct": percentage}}
@@ -303,14 +324,13 @@ def add_question():
                 "author": session["user"]
             }
             mongo.db.questions.insert_one(question)
-
             for module in modules:
                 if module["module_name"] == question.get("module_name"):
                     mongo.db.modules.update_one(
                         {"module_name": module["module_name"]},
                         {"$inc": {"total_questions": +1}}
                     )
-            print(question["_id"])
+
             students = mongo.db.students.find()
             for student in students:
                 mongo.db.students.update_one(
@@ -328,6 +348,8 @@ def add_question():
 
 @app.route("/edit_question/<question_id>", methods=["GET", "POST"])
 def edit_question(question_id):
+    if "user" not in session:
+        return render_template("not_user.html")
     question = mongo.db.questions.find_one({"_id": ObjectId(question_id)})
     modules = mongo.db.modules.find()
     question_module = question.get("module_name")
@@ -393,6 +415,8 @@ def delete_question(question_id):
 
 @app.route("/module/<module_name>")
 def module(module_name):
+    if "user" not in session:
+        return render_template("not_user.html")
     user = mongo.db.users.find_one(
         {"username": session["user"]})
     student = mongo.db.students.find_one(
@@ -414,6 +438,8 @@ def module(module_name):
 
 @app.route("/manage_modules")
 def manage_modules():
+    if "user" not in session:
+        return render_template("not_user.html")    
     user_type = mongo.db.users.find_one(
         {"username": session["user"]}
     )["user_type"]
@@ -426,6 +452,8 @@ def manage_modules():
 
 @app.route("/add_module", methods=["GET", "POST"])
 def add_module():
+    if "user" not in session:
+        return render_template("not_user.html")
     user_type = mongo.db.users.find_one(
         {"username": session["user"]}
     )["user_type"]
@@ -445,6 +473,8 @@ def add_module():
 
 @app.route("/edit_module/<module_id>", methods=["GET", "POST"])
 def edit_module(module_id):
+    if "user" not in session:
+        return render_template("not_user.html")
     if request.method == "POST":
         module_edit = {
             "module_name": request.form.get("module_name").lower()

@@ -41,7 +41,7 @@
                         <ul class="nav-bar nav">
                         
                             {% if "user" in session %}
-                                <li class="nav-item"><a class="btn" href="{{ url_for('profile', user=session['user']) }}">Home</a></li>
+                                <li class="nav-item"><a class="btn" href="{{ url_for('profile', user=session['user']) }}">Profile</a></li>
                                 <li class="nav-item"><a class="btn" href="{{ url_for('all_questions') }}">Questions</a></li>
                                 {% if "user" in session and session.user != "admin" %}
                                 <li class="nav-item"><a class="btn" href="{{ url_for('classes') }}">Class</a></li>

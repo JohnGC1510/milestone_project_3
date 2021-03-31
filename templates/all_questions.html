@@ -146,7 +146,7 @@
                             {% endfor %}
                             {% for unanswered_id in student.questions_unanswered %}                                        
                                 {% if unanswered_id == question._id %}
-                                    <div class="hidden">
+                                    <div>
                                         <label for="answer">Answer</label>
                                         <input type="text" name="answer" id="answer" minlength="1" maxlength="10" required>
                                         <button type="submit">Check</button>
