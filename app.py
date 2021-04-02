@@ -180,7 +180,6 @@ def search():
 
 @app.route("/answer/<question_id>", methods=["GET", "POST"])
 def answer(question_id):
-    # user_check(session["user"])
     userId = mongo.db.users.find_one(
         {"username": session["user"]}
         )["_id"]
@@ -271,7 +270,9 @@ def make_graph():
 
 @app.route("/classes")
 def classes():
-    # user_check(session["user"])
+    if "user" not in session:
+        return render_template("not_user.html")
+
     user = mongo.db.users.find_one(
         {"username": session["user"]}
     )
@@ -279,7 +280,6 @@ def classes():
         {"class": user["class"]}
     ).sort([("surname", 1)]))
 
-    print(students)
     questions_answered = []
     questions_correct = []
     top_ten = 0

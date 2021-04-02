@@ -4,9 +4,9 @@
 <h2 class="text-center h2_header"> Add Question</h2>
 
 <div class="row"> 
-    <form class="col-sm-12 offset-md-2 col-md-8 text-center" method="POST" action="{{ url_for('add_question') }}">
+    <form class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 text-center" method="POST" action="{{ url_for('add_question') }}">
         <div class="form-row">
-            <div class="col-12 offset-lg-4 col-lg-4">
+            <div class="offset-md-3 col-md-3 offset-lg-4 col-lg-2">
                 <label for="module_name">Module</label>
                 <select class="form-control" id="module_name" name="module_name" required>
                     <option value="" disabled selected>Choose...</option>
@@ -15,31 +15,34 @@
                     {% endfor %}
                 </select>
             </div>
-        </div>
-        <div class="form-row">
-            <div class="col-sm-12 offset-lg-1 col-lg-5 ">
+            <div class="col-md-3 col-lg-2">
                 <label for="grade">Grade</label>
                 <input type="number" id="grade" name="grade"
                  min="1" max="9" class="form-control" required> 
             </div>
-            <div class="col-sm-12 col-lg-5">
+        </div>
+        <div class="form-row"> 
+            <div class="col-sm-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">
                 <label for="question_name">Question Name</label>
                 <input type="text" id="question_name" name="question_name"
                  minlength="3" maxlength="50" class="form-control" placeholder="Please enter the name of your question" required> 
             </div>
         </div>
         <div class="form-row">
-            <div class="col-sm-12">
-                <textarea class="form-control question-text-area" id="question" name="question" minlength="10" maxlength="250"  placeholder="Please type out your question here" rows="5" required></textarea>
+            <div class="col-sm-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">
+                <label for="question">Question</label>
+                <textarea class="form-control" id="question" name="question" minlength="10" maxlength="250"  placeholder="Please type out your question here" rows="5" required></textarea>
             </div>
         </div>
         <div class="form-row">
-            <div class="col-sm-12 question-text-area">
-                <textarea class="form-control question-text-area" id="method" name="method" minlength="5" maxlength="250" placeholder="Please type out a useful hint that will assist a student in answering your question here" rows="5" required></textarea>
+            <div class="col-sm-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">
+                <label for="method">Method</label>
+                <textarea class="form-control" id="method" name="method" minlength="5" maxlength="250" placeholder="Please type out a useful hint that will assist a student in answering your question here" rows="5" required></textarea>
             </div>
         </div>
         <div class="form-row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">
+                <label for="answer">Answer</label>
                 <input class="form-control" type="text" id="answer" name="answer" placeholder="Please give the exact answer to your question" 
                  minlength="1" maxlength="30" required> 
             </div>
@@ -47,6 +50,7 @@
         <div class="form-row">
             <div class="col-sm-12">
             <button type="submit" class="btn btn-primary btn-form">Add Question</button>
+            <a href="{{ url_for('profile', user=session['user']) }}" class="btn btn-danger btn-form">Cancel</a>
         </div>
   </div>
 </form>

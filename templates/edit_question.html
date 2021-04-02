@@ -1,65 +1,67 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="text-center">Edit Question</h2>
-<div class="container form-container">
-<div class="row"> 
-    <form class="col-sm-12 offset-md-2 col-md-8 " method="POST" action="{{ url_for('edit_question', question_id=question._id) }}">
-        <div class="form-row">
-            <div class="col-12">
-                <label for="module_name">Module</label>
-                <select id="module_name" name="module_name" required>
-                    {% for module in modules %}
-                        {% if module.module_name == question.module_name %}
-                         <option value="{{ module.module_name }}" selected>{{ module.module_name }}</option>
-                         {% else %}  
-                         <option value="{{ module.module_name }}">{{ module.module_name }}</option>
-                         {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-sm-6">
-                <label for="grade">Grade:</label>
-                <input type="number" id="grade" name="grade" 
-                 min="1" max="9" value ="{{ question.grade }}" required> 
-            </div>
-            <div class="col-sm-6">
-                <label for="queston_name">Question Name:</label>
-                <input type="text" id="question_name" name="question_name"
-                 value ="{{ question.question_name }}" minlength="3" maxlength="30" required> 
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-sm-12">
-                 <label for="question">Question:</label>
-                <textarea id="question" name="question" minlength="10" maxlength="250" required>
-                {{- question.question -}}
-                </textarea>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-sm-12">
-                 <label for="method">Method:</label>
-                <textarea id="method" name="method" minlength="5" maxlength="250" required>
-                {{- question.method -}}
-                </textarea>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-sm-12">
-                 <label for="answer">Answer:</label>
-                <input type="text" id="answer" name="answer" value="{{ question.answer }}"
-                 minlength="1" maxlength="30" required> 
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Edit Question</button>
-        </div>
-  </div>
-</form>
 
-</div>
+<div class="container-fluid form-content">
+    <h2 class="text-center h2_header">Edit Question</h2>
+    <div class="row"> 
+        <form class="col-sm-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 text-center" method="POST" action="{{ url_for('edit_question', question_id=question._id) }}">
+            <div class="form-row">
+                <div class="offset-md-3 col-md-3 offset-lg-4 col-lg-2">
+                    <label for="module_name">Module</label>
+                    <select  class="form-control" id="module_name" name="module_name" required>
+                        {% for module in modules %}
+                            {% if module.module_name == question.module_name %}
+                            <option value="{{ module.module_name }}" selected>{{ module.module_name.capitalize() }}</option>
+                            {% else %}  
+                            <option value="{{ module.module_name }}">{{ module.module_name.capitalize() }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <label for="grade">Grade</label>
+                    <input class="form-control" type="number" id="grade" name="grade" 
+                    min="1" max="9" value ="{{ question.grade }}" required> 
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">
+                    <label for="queston_name">Question Name</label>
+                    <input class="form-control" type="text" id="question_name" name="question_name"
+                    value ="{{ question.question_name }}" minlength="3" maxlength="30" required> 
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">
+                    <label for="question">Question</label>
+                    <textarea class="form-control" id="question" name="question" minlength="10" maxlength="250" rows="5" required>
+                    {{- question.question -}}
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">
+                    <label for="method">Method</label>
+                    <textarea class="form-control" id="method" name="method" minlength="5" maxlength="250" rows="5" required>
+                    {{- question.method -}}
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">
+                    <label for="answer">Answer</label>
+                    <input class="form-control" type="text" id="answer" name="answer" value="{{ question.answer }}"
+                    minlength="1" maxlength="30" required> 
+                </div>
+            </div>
+            <div class="text-center form-group row">
+                <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary btn-form">Edit Question</button>
+                <a href="{{ url_for('profile', user=session['user']) }}" class="btn btn-danger btn-form">Cancel</a>
+            </div>
+        </div>
+        </form>
+
+    </div>
 </div>
 {% endblock %}

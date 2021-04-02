@@ -335,14 +335,13 @@ h6 {
     font-size:24px;
     color:black;
     transition: all 0.5s ease-in-out;
-    margin: auto auto;
 }
 
 .modules_button:hover{
-    background-color:rgb(143, 208, 219);
+    background-color:rgba(9, 116, 133, 0.322);
     z-index: 1;
     text-decoration: none;
-    color:black;
+    color:whitesmoke;
 }
 
 .active{
@@ -351,7 +350,7 @@ h6 {
 }
 
 .module_button_container{
-    height:100px;
+    height:60px;
     border:2px solid black;
     margin: 10px auto;
     background-color: #c0cdc9;
@@ -470,8 +469,12 @@ h6 {
     }
 
     .module_button_container{
-        width:303px;
+        width:200px;
         height:54px;
+    }
+
+    .modules_button{
+        width:100%;
     }
 
     .graph-container{

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         {% for module in modules %}
-        <div class="col-sm-4 col-lg-3">
+        <div class="col-sm-6 col-lg-3">
             <div class="module_button_container">
                 {% if module.module_name == mod_name %}
                 <a class="modules_button active" href="{{ 
@@ -163,8 +163,9 @@
 <div class="push-footer">
     <div class="container">
         <div class="row  push-footer">
+            
             {% for module in modules %}
-            <div class="col-sm-4 col-lg-3">
+            <div class="col-sm-6 col-lg-3">
                 <div class="module_button_container">
                     {% if module.module_name == mod_name %}
                     <a class="modules_button active" href="{{ 
@@ -180,7 +181,7 @@
                 </div>
             </div>
             {% endfor %}
-        </div>
+            
     </div>
     <div class="container"> 
         <div class="row">
