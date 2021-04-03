@@ -41,6 +41,10 @@ header, .main-content, footer {
 .silver-bg-color{
     background-color:#c0cdc9;
 }
+
+.blue-bg-color{
+    background-color: lightskyblue;
+}
 /*--------- Base Template ----------*/
 #logo{
     max-width:120px;
@@ -253,6 +257,10 @@ h6 {
 
 }
 
+/*------- Error Pages ----------*/
+.warning-message{
+    margin-top:200px;
+}
 /*------------- Profile Page Student ----------*/  
 .profile-header{
     margin: 25px 0px;
