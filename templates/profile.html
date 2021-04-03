@@ -4,7 +4,7 @@
     {% if (user.user_type == "teacher" or user.user_type == "admin") %}
     <div class="push-footer">  
     <div class="text-center">
-        <h3>Hello {{ user.title.capitalize() }} {{user.surname.capitalize() }}<br>
+        <h3 class="h2_header">Hello {{ user.title.capitalize() }} {{user.surname.capitalize() }}<br>
             <a href="{{ url_for('add_question') }}">Click Here</a> to add a question
         </h3>
         </div>
@@ -64,7 +64,7 @@
                                     <p>Are you sure you want to delete this question?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
                                     <a id="delete-confirm" class="btn btn-outline-primary">Delete</a>
                                 </div>
                             </div>

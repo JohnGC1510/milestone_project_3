@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="text-center"> All Questions </h2>
+<h2 class="text-center h2_header"> All Questions </h2>
 <div class="container">
 <div class="row text-center">
     <form action="{{ url_for('search') }}" method="POST" class="col-12">
         <div class="d-inline-block">
-            <label for="query">Search Questions</label>
-            <input type="text" name="query" id="query" minlength="3" required>
+            <i class="fas fa-search"></i>
+            <input type="text" name="query" id="query" minlength="3"
+            placeholder="Search..." required>
         </div>
         <div class="d-sm-block d-md-inline-block">
              <button class="btn search-btn" type="submit">Search</button>

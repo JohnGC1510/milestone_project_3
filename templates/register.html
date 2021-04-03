@@ -4,12 +4,14 @@
     <div class="register-form-container">
 <h2 class="text-center"> Sign Up </h2>
 <div class="row"> 
-    <form class="col-sm-12 offset-md-2 col-md-8 offset-lg-4 col-lg-4" method="POST" action="{{ url_for('register') }}">
+    <form class="col-sm-12 offset-md-2 col-md-8 offset-lg-4 col-lg-4 was-validated" method="POST" action="{{ url_for('register') }}">
         <div class="form-row register-item">
             <div class="col-12">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" pattern="^[a-zA-Z0-9]{5,15}$"
-                 minlength="5" maxlength="15" class="form-control" required> 
+                 minlength="5" maxlength="15" class="form-control" required>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">5 Characters minimum, no special characters</div> 
             </div>
         </div>
         <div class="form-row register-item">
@@ -17,6 +19,8 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9]{5,15}$"
                  minlength="5" maxlength="15" class="form-control" required> 
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">5 Characters minimum, no special characters</div>
             </div>
         </div>
         <div class="form-row register-item">
@@ -29,18 +33,24 @@
                     <option value="Miss">Miss</option>
                      <option value="Mrs">Mrs</option>
                 </select>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Please choose a title</div>
             </div>
             <div class="col-sm-10 col-md-8">
                 <label for="first_name">First Name</label>
                 <input type="text" id="first_name" name="first_name" pattern="^[a-zA-Z]{3,15}$"
-                 minlength="3" maxlength="15" class="form-control" required> 
+                 minlength="2" maxlength="15" class="form-control" required>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">2 Characters minimum, no special characters</div> 
             </div>
         </div>
         <div class="form-row register-item">
             <div class="col-sm-12">
                 <label for="surname">Surname</label>
                 <input type="text" id="surname" name="surname" pattern="^[a-zA-Z]{3,15}$"
-                 minlength="3" maxlength="15" class="form-control" required> 
+                 minlength="2" maxlength="15" class="form-control" required>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">2 Characters minimum, no special characters</div> 
             </div>
         </div>
         <div class="form-row register-item">
@@ -51,6 +61,8 @@
                     <option value="student">Student</option>
                     <option value="teacher">Teacher</option>
                 </select>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Please choose an option</div>
             </div>
             <div class="col-sm-6">
                  <label for="class">Class</label>
@@ -60,15 +72,24 @@
                     <option value="beta">Beta</option>
                     <option value="gamma">Gamma</option> 
                 </select>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Please choose an option</div>
             </div>
         </div>
         <div class="form-row">
             <div class="col-sm-12">
-            <button type="submit" class="btn btn-primary register-btn form-control">Sign Up</button>
+            <button type="submit" class="btn btn-primary register-btn">Sign Up</button>
         </div>
   </div>
 </form>
 </div>
+<div class="row">
+            <div class="col-12 text-center">
+            <p>
+                If you have an account please <a class="login-link" href="{{ url_for('login') }}">log in here</a>
+            </p>
+            </div>
+        </div>
 </div>
 </div>
 {% endblock %}

@@ -4,4 +4,3 @@ $(".delete-button").on("click", function(){
     $("#delete-confirm").attr("href", `/delete_question/${questionId}`);
 });
 
-
