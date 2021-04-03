@@ -24,6 +24,9 @@ mongo = PyMongo(app)
 
 
 def calc_working_grade(score):
+    """
+    Calculates the current students working grade from their percentage of questions answered correctly
+    """
     if score >= 90:
         current_grade = 9
     elif score >= 80:
@@ -57,7 +60,9 @@ def index():
 @app.route("/profile/<user>")
 def profile(user):
     """
-    Function description
+    This function generates the profile page for users. For student users
+    it specifically takes the data from mongodb to create tuples that
+    allow the progess bars to be dynamically updated.
     """
     if "user" not in session:
         return render_template("not_user.html")
@@ -146,6 +151,10 @@ def profile(user):
 
 @app.route("/all_questions")
 def all_questions():
+    """
+    Function takes information from mongodb that allows students
+    to be able to see and answer all questions
+    """
     if "user" not in session:
         return render_template("not_user.html")
 
@@ -163,6 +172,9 @@ def all_questions():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    """
+    Function to allow users to able to search through all questions
+    """
     query = request.form.get("query")
     questions = list(mongo.db.questions.find(
         {"$text": {"$search": query}}
@@ -180,6 +192,11 @@ def search():
 
 @app.route("/answer/<question_id>", methods=["GET", "POST"])
 def answer(question_id):
+    """
+    Function takes the answer submitted by the student and
+    updates relevant parts of the database to provide student
+    with some statistics on performance
+    """
     userId = mongo.db.users.find_one(
         {"username": session["user"]}
         )["_id"]
@@ -231,6 +248,10 @@ def answer(question_id):
 
 @app.route("/make_graph")
 def make_graph():
+    """
+    Function uses pygal libary and data from student to generate
+    a pie chart
+    """
     userId = mongo.db.users.find_one(
         {"username": session["user"]}
         )["_id"]
@@ -270,6 +291,11 @@ def make_graph():
 
 @app.route("/classes")
 def classes():
+    """
+    function orders student data numerically to allow a top ten table
+    to be displayed for student's comparison as well as being
+    ordered alphabetically for ease of teacher
+    """
     if "user" not in session:
         return render_template("not_user.html")
 
@@ -305,6 +331,10 @@ def classes():
 
 @app.route("/add_question", methods=["GET", "POST"])
 def add_question():
+    """
+    function takes information from the user submitted form
+    and updates database with the question added by the user
+    """
     if "user" not in session:
         return render_template("not_user.html")
 
@@ -348,6 +378,10 @@ def add_question():
 
 @app.route("/edit_question/<question_id>", methods=["GET", "POST"])
 def edit_question(question_id):
+    """
+    Function that edits the database based on how the user wishes
+    to edit the question
+    """
     if "user" not in session:
         return render_template("not_user.html")
     question = mongo.db.questions.find_one({"_id": ObjectId(question_id)})
@@ -397,6 +431,10 @@ def edit_question(question_id):
 
 @app.route("/delete_question/<question_id>")
 def delete_question(question_id):
+    """
+    Function that deletes question and removes the corresponding
+    values form the database
+    """
     question = mongo.db.questions.find_one({"_id": ObjectId(question_id)})
     mongo.db.modules.update_one(
             {"module_name": question["module_name"]},
@@ -415,6 +453,11 @@ def delete_question(question_id):
 
 @app.route("/module/<module_name>")
 def module(module_name):
+    """
+    Function that allows the users an additonal option to filter
+    the questions by module rather than search for a specific
+    question
+    """
     if "user" not in session:
         return render_template("not_user.html")
     user = mongo.db.users.find_one(
@@ -438,8 +481,12 @@ def module(module_name):
 
 @app.route("/manage_modules")
 def manage_modules():
+    """
+    Function that creates a page that allows an
+    admin user to add or remove modules
+    """
     if "user" not in session:
-        return render_template("not_user.html")    
+        return render_template("not_user.html")
     user_type = mongo.db.users.find_one(
         {"username": session["user"]}
     )["user_type"]
@@ -452,6 +499,9 @@ def manage_modules():
 
 @app.route("/add_module", methods=["GET", "POST"])
 def add_module():
+    """
+    Function that adds a module to the database"
+    """
     if "user" not in session:
         return render_template("not_user.html")
     user_type = mongo.db.users.find_one(
@@ -473,6 +523,9 @@ def add_module():
 
 @app.route("/edit_module/<module_id>", methods=["GET", "POST"])
 def edit_module(module_id):
+    """
+    Function that edits a module and it's values in the database
+    """
     if "user" not in session:
         return render_template("not_user.html")
     if request.method == "POST":
@@ -492,6 +545,13 @@ def edit_module(module_id):
 
 @app.route("/delete_module/<module_id>")
 def delete_module(module_id):
+    """
+    Function that deletes a module from the database. This function
+    needs updating so all the questions assocciated with a module
+    are transferred to a different module when a module is deleted.
+    However the physics cirriculuum rarely changes so a moudle will
+    very rarely need deleting
+    """
     mongo.db.modules.remove({"_id": ObjectId(module_id)})
     flash("Module deleted successfully")
     return redirect(url_for("manage_modules"))
@@ -499,6 +559,10 @@ def delete_module(module_id):
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """
+    Function that add's a new user to the database and directs them
+    to thier profile page
+    """
     if request.method == "POST":
         # check if user exists
         existing_user = mongo.db.users.find_one(
@@ -555,7 +619,6 @@ def register():
  
         # put new user into session cookie
         session["user"] = request.form.get("username").lower()
-        flash("Registration Successful")
         return redirect(url_for("profile", user=session["user"]))
 
     return render_template("register.html")
@@ -563,12 +626,15 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """
+    Function that allows user to log in
+    """
     if request.method == "POST":
         input_name = request.form.get("username").lower()
         existing_user = mongo.db.users.find_one({"username": input_name})
 
         if existing_user:
-            # ensure hahsed password matches user input
+            # ensure hashed password matches user input
             if check_password_hash(existing_user["password"],
                                    request.form.get("password")):
                 session["user"] = input_name
@@ -587,10 +653,13 @@ def login():
 
 @app.route("/logout")
 def logout():
-    # remove user from session cookies
+    """
+    function that allows user to logout
+    """
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("login"))
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
