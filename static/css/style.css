@@ -330,12 +330,6 @@ h6 {
     background-color: #c0cdc9;
 }
 
-.question{
-}
-
-.question-solution{
-
-}
 
 .question-container{
     padding:0;
@@ -378,12 +372,18 @@ h6 {
     text-align: center;
 }
 /*---------- Flash Messages --------------*/
-.flashes{
-    background-color:aqua;
-    margin-top:15px;
-    margin-bottom: 15px;
+.flash-login{
+    position: absolute;
+    left:0;
+    right:0;
+    margin:0 auto;
+    width:400px;
+    top: 20%;
 }
 
+.flash{
+    margin:5px auto;
+}
 /*---------- Media Commands --------------*/
 
 @media only screen and (max-width: 1440px) {

@@ -23,6 +23,18 @@
     </div>
 </div>
 
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="row flash">
+    <div class=" text-center col-sm-12 offset-md-2 col-md-8">
+        <h4>{{ message }}</h4>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
 <!-- Loop through all questions -->
 <div class="push-footer">
     <!-- Loop through all questions -->
