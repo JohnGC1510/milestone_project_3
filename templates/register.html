@@ -4,7 +4,7 @@
     <div class="register-form-container">
 <h2 class="text-center"> Sign Up </h2>
 <div class="row"> 
-    <form class="col-sm-12 offset-md-2 col-md-8 offset-lg-4 col-lg-4 was-validated" method="POST" action="{{ url_for('register') }}">
+    <form class="col-sm-12 offset-md-2 col-md-8 offset-lg-4 col-lg-4 needs-validation" method="POST" action="{{ url_for('register') }}" novalidate>
         <div class="form-row register-item">
             <div class="col-12">
                 <label for="username">Username</label>
@@ -19,7 +19,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9]{5,15}$"
                  minlength="5" maxlength="15" class="form-control" required> 
-                <div class="valid-feedback">Valid.</div>
+                <div class="valid-feedback">Valid</div>
                 <div class="invalid-feedback">5 Characters minimum, no special characters</div>
             </div>
         </div>
@@ -41,7 +41,7 @@
                 <input type="text" id="first_name" name="first_name" pattern="^[a-zA-Z]{3,15}$"
                  minlength="2" maxlength="15" class="form-control" required>
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">2 Characters minimum, no special characters</div> 
+                <div class="invalid-feedback">3 Characters minimum, no special characters</div> 
             </div>
         </div>
         <div class="form-row register-item">
@@ -50,7 +50,7 @@
                 <input type="text" id="surname" name="surname" pattern="^[a-zA-Z]{3,15}$"
                  minlength="2" maxlength="15" class="form-control" required>
                 <div class="valid-feedback"></div>
-                <div class="invalid-feedback">2 Characters minimum, no special characters</div> 
+                <div class="invalid-feedback">3 Characters minimum, no special characters</div> 
             </div>
         </div>
         <div class="form-row register-item">
