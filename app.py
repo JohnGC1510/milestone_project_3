@@ -570,7 +570,7 @@ def login():
         if existing_user:
             # ensure hahsed password matches user input
             if check_password_hash(existing_user["password"],
-                                   request.form.get("password").lower()):
+                                   request.form.get("password")):
                 session["user"] = input_name
                 flash("welcome, {}".format(input_name))
                 return redirect(url_for("profile", user=session["user"]))
