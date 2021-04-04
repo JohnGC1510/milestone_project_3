@@ -1,17 +1,24 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container-fluid push-footer blue-bg-color">
-    <div class="row">
-        <div class="text-center col-12">
-            <h3 class="h2_header">
-                The page you requested does not exist
-            {% if "user" in session %}
-                        <a class="login-link" href="{{ url_for('profile', user=session['user']) }}">click here to return to your profile page</a>
-                    {% else %}
-                        <a class="login-link" href="{{ url_for('index') }}"><img id="logo" src="{{ url_for('static', filename='images/logo.png') }}">click here to return home</a>
-                    {% endif %}
-         </h3>
-        </div>
+  <div class="row">
+    <div class="text-center col-12">
+      <h3 class="h2_header">
+        The page you requested does not exist {% if "user" in session %}
+        <a
+          class="login-link"
+          href="{{ url_for('profile', user=session['user']) }}"
+          >click here to return to your profile page</a
+        >
+        {% else %}
+        <a class="login-link" href="{{ url_for('index') }}"
+          ><img
+            id="logo"
+            src="{{ url_for('static', filename='images/logo.png') }}"
+          />click here to return home</a
+        >
+        {% endif %}
+      </h3>
     </div>
+  </div>
 </div>
 {% endblock %}
