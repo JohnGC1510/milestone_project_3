@@ -51,6 +51,13 @@ def calc_working_grade(score):
     return current_grade
 
 
+# Error Handling Pages
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+
 @app.route("/")
 @app.route("/index")
 def index():
