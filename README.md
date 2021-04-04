@@ -136,6 +136,30 @@ The project was hosted on Github and deployed through heroku.
 - MongoDB account
 - Heroku account 
 
+### Step 1 - Clone my repository
+- To clone my repository you first need to logged into github and go to [my repository](https://github.com/JohnGC1510/milestone_project_3)
+- Click on the "code" button just above the files
+
+- Click "Open with GitHub Desktop" and follow the instructions in the GitHub desktop application. Other ways to clone a repository can be found [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-to-github-desktop) 
+
+### Step 2 - Working with local clone
+-  To work with the local clone you need to ensure all enviromental variables have been set in an env.py file. These variables are private so ensure that you have a .gitignore file that prevents your env.py file being pushed to github. An example of a env.py file can be seen below:
+`
+import os
+os.environ.setdefault("IP", "0.0.0.0")
+os.environ.setdefault("PORT", "5000")
+os.environ.setdefault("SECRET_KEY", "***************")
+os.environ.setdefault("MONGO_URI", "***********")
+os.environ.setdefault("MONGO_DBNAME", "jargon_dict") 
+`
+- Install all the required libraires from the requirements.txt file using the console command: with `pip install -r requirements.txt`
+- Create your database in MongoDB with the following collections:
+    1. users
+    2. students
+    3. questions
+    4. modules
+    5. class
+    6. teachers
 
 ## Credits
 ---
@@ -146,5 +170,5 @@ The project was hosted on Github and deployed through heroku.
 ### **Infomration**
 
 ### **Acknowledgements**
-- My mentor Anthony Montaro for his fantastic support and assistance.
+- My mentor Ignatius for his fantastic support and assistance.
 - The slack community for their continued support.
