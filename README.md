@@ -144,22 +144,66 @@ The project was hosted on Github and deployed through heroku.
 
 ### Step 2 - Working with local clone
 -  To work with the local clone you need to ensure all enviromental variables have been set in an env.py file. These variables are private so ensure that you have a .gitignore file that prevents your env.py file being pushed to github. An example of a env.py file can be seen below:
-`
+```
 import os
 os.environ.setdefault("IP", "0.0.0.0")
 os.environ.setdefault("PORT", "5000")
 os.environ.setdefault("SECRET_KEY", "***************")
 os.environ.setdefault("MONGO_URI", "***********")
 os.environ.setdefault("MONGO_DBNAME", "jargon_dict") 
-`
-- Install all the required libraires from the requirements.txt file using the console command: with `pip install -r requirements.txt`
-- Create your database in MongoDB with the following collections:
+```
+
+- When cloning the project you should cloned the requiremnts.txt file, if this is not the case then use the following command in the CLI:
+```
+$ pip3 freeze -- local > requirements.txt
+```
+This file will contain a list of dependencies for the project. These can be installed with the following command in the CLI:
+```
+$ pip install -r requirements.txt
+```
+
+- Ensure you have a procfile as this will tell heroku how to run the application. A procfile can be created in the CLI using:
+```
+$ echo web: python app.py > Procfile
+```
+
+- Ensure you have added and pushed both the procfile and the requriments.txt file using git add . git commit and git push.
+
+- Finally ensure you have created your database in MongoDB with the following collections:
     1. users
     2. students
     3. questions
     4. modules
     5. class
     6. teachers
+
+- You should now be able to run the project locally using:
+```
+$ python3 app.py
+```
+### Step 3 - Deploying to Heroku
+The project will automatically deploy to heroku after the following has been completed:
+- Open you are logged in to Heroku create a new app selecting the appropriate region.
+
+- Deployment method "GitHub" (if this section is accidentally missed, you can use the tab selection within your dashboard "DEPLOY")
+
+- Select the "connect to GitHub" button and search for your repository using the form provided.
+
+Once you have connected your GitHub repository:
+- Navigate to the "Settings" tab:
+- Scroll to the section "Config Vars" and click "reveal config vars" button:
+    - Input all data found in your env.py file into this section. 
+    - An example using my earlier example of an env.py file would be a config var with a key of IP and with a value of 0.0.0.0
+- Navigate back to the "Deploy" tab:
+    - Scroll to automatic deploys and enable automatic deployment.
+    - Scroll to the "Manual Deploy" tab:
+        1. Select the branch you wish to deploy (master is default)
+        2. Click the "Deploy Branch" button. (This may take some time as Heroku uploads the app to their servers.) 
+
+- Once the build is complete, a "View App" button will appear and you should be informed that the app has succesfully deployed.
+
+- Common issues include outdated requirements.txt and/or missing Procfile, if errors occur, check these are both correct before investigating further 
+
 
 ## Credits
 ---
