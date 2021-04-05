@@ -165,6 +165,8 @@ Jeff has completed all the electricity questions, 50%  of the radioactivity ques
 
 - The class system is basic as you need to choose a class when you sign up, it would be useful to implement some class control for teachers so that they are able to add classes and add and remove student users from thier class as appropriate. 
 
+- Implement the CRUD functionallity for modules correclty as deleting and editing modules currently have a detrimental impact on the project.
+
 
 ## **Data Structure**
 ---
