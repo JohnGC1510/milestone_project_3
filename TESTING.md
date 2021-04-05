@@ -3,14 +3,12 @@
 ## Table of Contents
 ---
 * [Navigation](#navigation)
-* [Home Page](#home)
-    + [Login / Register](#login---register)
+* [Home Page](#index)
 * [User pages](#user-pages)
-    + [Profile Page](#profile-page)
+    + [Profile Page](#profile-pages)
     + [Questions Page](#questions-page)
     + [Class Page](#class-page)
-    + [Modules Page](#modoules-page)
-    + [Admin Pages](#admin-pages)
+    + [Modules Page](#modules-page)
     + [Error Pages](#error-pages)
 * [Performance](#performance)
 * [Validators](#code-validation)
@@ -25,7 +23,7 @@
     + [Student User](#student-user)
     + [Teacher User](#teacher-user)
     + [General User](#general-user)
-  * [Known Bugs](#known-bugs)
+* [Known Bugs](#known-bugs)
 
 Testing was performed manually for the full site. 
 
