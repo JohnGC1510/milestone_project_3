@@ -17,7 +17,7 @@ of their class. The questions mark themselves and will reduce the marking load f
 ---
 ### **Business and Developer Goals**
 - To assist GCSE physics students in obtaining the best possible exam results. 
-- To promote PhyRev so that more schools sign up to our website increasing business revenue
+- To promote Pass Physics wesbite so that more schools sign up increasing our business revenue
 - To have project using a detailed database as part of his portfolio 
 
 ### **Student Goals**
@@ -70,12 +70,12 @@ As a general user I want:
 I used Font Awesome icons for my social media links as it gives a intuitive way for users to access the sites social media. I also used Font Awesome icons to make my search bar more intuitive to use. 
 
 #### **Colors**
-The color scheme was light grey - blue. Blue and grey are two colours that complement each other well and are not overpowering. The light grey was based ont the logo and the blue from the hero image. The hero image was darkend considerably to allow for the call-to-action text to be clearly dispalyed. Hence the blues you find throughout the rest of the site are considerbaly lighter than the blue seen on the hero image. 
+The color scheme was light grey - blue. Blue and grey are two colours that complement each other well and are not overpowering. The light grey was based ont the logo and the blue from the hero image. The hero image was darkened considerably to allow for the call-to-action text to be clearly displayed. Hence the blues you find throughout the rest of the site are considerably lighter than the blue seen on the hero image. 
 
-When choosing colours on the students profile page I went with the tradional red, amber, green colours to indicate progress to make it intuitively clear.
+When choosing colours on the students profile page I went with the traditional red, amber, green colours to indicate progress to make it intuitively clear.
 
 #### **User Pages**
-When designing the user pages I tried to keep the pages simplisitc to allow maximum ease of use to encourage users to return more regulalry. The site is more about it's functionallity than it's design. 
+When designing the user pages I tried to keep the pages simplistic to allow maximum ease of use to encourage users to return more regularly. The design also allows for users to easily access their unique user data. 
 
 #### **Hero Image**
 I wanted the hero image to fit the theme of the site and believe it does lead you to think about STEM education and primarily physics and mathematics. The call to action button clearly encourages you to sign up and experience the site yourself. 
@@ -101,7 +101,7 @@ I wanted the hero image to fit the theme of the site and believe it does lead yo
 ![Students-Class-Wireframe](static/wireframes/class_wf_teacher.PNG)
 ## Features
 ---
-### **Existing Feautres**
+### **Existing Features**
 ---
 #### Home Page
 - Advertises the site and provides easy access to sign in/login to the user areas. 
@@ -122,7 +122,7 @@ I wanted the hero image to fit the theme of the site and believe it does lead yo
 ![student profile picture](static/images/profile_student.png)
 Jeff has completed all the electricity questions, 50%  of the radioactivity questions, a third of the energy questions and none of the particles questions. He can tell his current working grade and a pie chart represents his current performance. 
 
-#### CRUD functionallity
+#### CRUD Functionality
 - Teacher users can add, edit and delete questions there own questions
 - When deleting questions from database defensive programming practices are implemented. 
 
@@ -131,28 +131,29 @@ Jeff has completed all the electricity questions, 50%  of the radioactivity ques
 - Additionally admin users can add, edit and delete modules.
 
 #### Questions page
-- Teacher and admin users are simply able to view the quesitons left by all users and search through the questions using a search bar. 
+- Teacher and admin users are simply able to view the questions left by all users and search through the questions using a search bar. 
 
-- The questions page for students allows them to answer the questions, they can attempt an individual question as many times as they wish until they get the correcr answer. Students can search for specific questions to answer.
+- The questions page for students allows them to answer the questions, they can attempt an individual question as many times as they wish until they get the correct answer. Students can search for specific questions to answer.
 
 ![student questions view](static/images/student_questions.png)
 
-- The student view either provides the question and answer form to compelte, a question and method and a answer form to complete or a question, method and solution to the question. The dispaly changes based on whether a student has attempted a question, answered it incorrectly or answered it correctly. An example of all 3 views can be seen in the top 3 questions in the above screenshot.
+- The student view either provides the question and answer form to complete, a question and method and a answer form to complete or a question, method and solution to the question. The display changes based on whether a student has attempted a question, answered it incorrectly or answered it correctly. An example of all 3 views can be seen in the top 3 questions in the above screenshot.
 
 #### Class Page
 
-- The class page allows student users to compare there progress to other students and provides a competetive element to the site to try enocurage student users to return and attempt more questions. A student user is placed and highlighted in a top-ten leader board in the class. 
+- The class page allows student users to compare there progress to other students and provides a competitive element to the site to try encourage student users to return and attempt more questions. A student user is placed and highlighted in a top-ten leader board in the class. 
 
 ![student class view](static/images/student_class.png)
 
-- The teacher class page allows the teacher to track how the the full class is performing by providing data on each student. The studnets are arranged into alphabetical order by surname to match register order in a class.
+- The teacher class page allows the teacher to track how the full class is performing by providing data on each student. The students are arranged into alphabetical order by surname to match register order in a class.
 
 ![teacher class view](static/images/class_teacher.png)
 
 #### Modules Page
 
-- The modules page is similar to the questions page, students are able to answer the questions and teachers are able to view the questions. The modules page requires an additional filtering option which would be useful a studnet user wanted to revise a specific module or a teacher wanted to know the questions available for a specific module. 
+- The modules page is similar to the questions page, students are able to answer the questions and teachers are able to view the questions. The modules page requires an additional filtering option which would be useful a student user wanted to revise a specific module or a teacher wanted to know the questions available for a specific module. 
 
+- Admin users are able to add modules to the website from their manage modules tab. 
 ### **Features left to implement** 
 
 - As more questions are added to the database it would be useful to add pagination to the questions and modules page. 

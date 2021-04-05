@@ -31,16 +31,16 @@ Testing was performed manually for the full site.
 
 ### **Navigation**
 ---
-- All links have been tested for admin, studnet and teacher users and no broken links were discovered. 
-- If a student user attempts to access a part of the site they do not have premisssions for (adding questions etc.) they are re-directed to a page informing them off their lack of premisssions and offering navigation to thier profile page
-- If a guest users attempts to access the main parts of the website they are  re-dircted to a page that asks them to sign-up/login
+- All links have been tested for admin, student and teacher users and no broken links were discovered. 
+- If a student user attempts to access a part of the site they do not have permissions for (adding questions etc.) they are re-directed to a page informing them off their lack of permissions and offering navigation to their profile page
+- If a guest users attempts to access the main parts of the website they are re-directed to a page that asks them to sign-up/login
 - Navigation bar displays correct items depending if the user is logged in or out 
 - Navigation bar displays the correct items depending on the type of user logged in
 ---
 ### **Index**
-- Page displays correclty and is only shown if the user is not logged into the site. 
+- Page displays correctly and is only shown if the user is not logged into the site. 
 #### Login / Register
-- Login and register functionallity extensively tested, a bug was recently found where capatilized passwords were not accepted as I mistakenly applied .lower() to the password received from the login form. This has now been fixed. - Register form feedback has been tested for all fields and the correct feedback displays when a user fills in field incorrectly and then submits the form.  
+- Login and register functionality extensively tested, a bug was recently found where capitalized passwords were not accepted as I mistakenly applied .lower() to the password received from the login form. This has now been fixed. - Register form feedback has been tested for all fields and the correct feedback displays when a user fills in field incorrectly and then submits the form.  
 
 ### **User Pages**
 ---
@@ -48,9 +48,9 @@ Testing was performed manually for the full site.
 #### Profile Pages
 -   The student profile page was tested to check that when a answers a question correctly or incorrectly the relevant values in the database are updated and the statistics shown to the user update with them. This is the case for all but the working grade displayed too the user, their is a bug that means that the user needs to refresh the browser after navigating to the profile page to show the updated value of the working grade. I currently have been unable to find a fix for this bug. 
 
-- The progress bars on the students profile page were tested by editing, adding and removing questions from specfic modules to check if progress bar filled and updated correctly. The progerss bars update correctly for all CRUD operations performed on questions. 
+- The progress bars on the students profile page were tested by editing, adding and removing questions from specific modules to check if progress bar filled and updated correctly. The progress bars update correctly for all CRUD operations performed on questions. 
  
- - The progress bars are not dynamically generated, so when a new moudule is added the progress bar needs to be manually added into the profile function which is highly inefficient however I have yet to be able to find a solution to dynamically generate the progress bars correctly. 
+ - The progress bars are not dynamically generated, so when a new module is added the progress bar needs to be manually added into the profile function which is highly inefficient however I have yet to be able to find a solution to dynamically generate the progress bars correctly. 
 
  - On the teacher and admins profile page adding, editing and deleting questions instantly adds/edits/deletes the displayed questions on the page and the database is correctly updated.
 
@@ -71,10 +71,10 @@ Testing was performed manually for the full site.
 - As you click on the module button the appropriate questions appear based on the module filter
 - Editing/adding/deleting questions in the database is correctly reflected on the modules page
 - Adding modules is correctly reflected in the modules page. 
-- Editing modules is not correctly refelcted in the modules page - the edit modules function requires updating so that when a module is edited all of the questions are looped through and the module name is updated in each question. The student progress bars are also not dynamically created so editing a module will also require you to update the profile fuction appropriately. 
-- Editing moudles also removes the 'total_questions' integer from the collection, causing the site to break due to a key error, this clearly has been very poorly implemented hence the option to edit modules has been removed. 
-- Deleting a module has not been well implemented and badly effects the sites functionallity, due to this I have removed the option to delete a module as it will very rarely be necessary as the physics GCSE modules have not changed in years. However if deleting a module was to be implemented I would need to ensure any questions associtated with that module would also be deleted as well as the progress bars and any associtated data. 
-- It is important to note only admin users were able to edit and delete modukes so removing these 2 features will have very little impact on a day to day user of the site however they would be vital for long term site maintanence. 
+- Editing modules is not correctly reflected in the modules page - the edit modules function requires updating so that when a module is edited all of the questions are looped through and the module name is updated in each question. The student progress bars are also not dynamically created so editing a module will also require you to update the profile function appropriately. 
+- Editing modules also removes the 'total_questions' integer from the collection, causing the site to break due to a key error, this clearly has been very poorly implemented hence the option to edit modules has been removed. 
+- Deleting a module has not been well implemented and badly effects the sites functionality, due to this I have removed the option to delete a module as it will very rarely be necessary as the physics GCSE modules have not changed in years. However if deleting a module was to be implemented I would need to ensure any questions associated with that module would also be deleted as well as the progress bars and any associated data. 
+- It is important to note only admin users were able to edit and delete modules so removing these 2 features will have very little impact on a day to day user of the site however they would be vital for long term site maintenance. 
 
 ### Error Pages
 - The 404 error page has been tested and functions correctly 
@@ -82,30 +82,64 @@ Testing was performed manually for the full site.
 
 ## **Performance**
 ---
+I tested the websites performance using Google lighthouse within the chrome developer tools. The tests can be seen below:
+
+![index performance](static/images/index_performance.PNG)
+![profile performance](static/images/student_profile_performance.PNG)
+![all questions performance](static/images/students_allquestions_performance.PNG)
+![modules performance](static/images/modules_performance.png)
+![class performance](static/images/classes_performance.PNG)
+
+
+
+- The performance on the home page is poor compared to the rest of the site due to the size of the image files used on the home page.
+
+- The issue preventing the accessibility from scoring 100 on most pages is the heading elements are not in a sequentially descending order.
+
+- On the Modules and All questions page the accessibility is 83, this was due to non-unique Aria ID's. I could not find a way to avoid this as it is occurs within for loops on the pages using the Jinja Templating language. 
 ## **Code Validation**
 ---
 
 ### HTML
-- All pages would fail HTML validation using the [HTML W3 validator](https://validator.w3.org/nu/#textarea) due to errors caused by Jinja Templating langauge. No errors or warnings occur other than those caused by use of Jinja Templating
+- All pages would fail HTML validation using the [HTML W3 validator](https://validator.w3.org/nu/#textarea) due to errors caused by Jinja Templating langauge. No errors or warnings occur other than those caused by use of Jinja Templating were found on any of the template pages.
 
 ### CSS
 
-
+- No errors were found when the style.css page was passed for the [W3 CSS validator](https://jigsaw.w3.org/css-validator/validator)
 
 ### JavaScript
-
-
+- I tested my javascript using [JS hint](https://jshint.com/) and it passed with the following two warning
+```
+8	'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+9	'template literal syntax' is only available in ES6 (use 'esversion: 6').
+``` 
+- The console errors below appear when you load the student profile page, I beleive it is caused by the generation of the pie chart however I was unable to remove the errors. These errors appear to have no impact on the performance of the site. 
+![image displaying console errors](static/images/console_errors.png)
 ### PEP8
 - The python code file is fully PEP8 compliant and passed the [PEP8 online](http://pep8online.com/) validation.
 
 ## Compatibility
 ---
 ### Hardware
+I personally tested the website on:
+- a windows system with a 4k and HD displays.
+- A chromebook with a 1366x768 display
+- A google pixel 5 mobile device
+- An Ipad Pro
 
+My family also tested on a number of different mobile devices and laptops. 
+
+No issues were found on any devices during testing. 
 
 ### Browsers
+I personally tested the website on:
+- Google chrome
+- Microsoft Edge
+- Firefox
 
+Family and friends tested on Safari. 
 
+No browser specific issues were found during testing.
 ## User Stories
 ---
 ### Student User

@@ -533,44 +533,6 @@ def add_module():
         return render_template("no_premission.html")
 
 
-@app.route("/edit_module/<module_id>", methods=["GET", "POST"])
-def edit_module(module_id):
-    """
-    Function that edits a module and it's values in the database
-    this function needs updating if it is to be used without
-    causing the site to crash
-    """
-    if "user" not in session:
-        return render_template("not_user.html")
-    if request.method == "POST":
-        module_edit = {
-            "module_name": request.form.get("module_name").lower()
-        }
-        mongo.db.modules.update(
-            {"_id": ObjectId(module_id)},
-            module_edit
-        )
-        flash("Module has been updated")
-        return redirect(url_for("manage_modules"))
-
-    module = mongo.db.modules.find_one({"_id": ObjectId(module_id)})
-    return render_template("edit_module.html", module=module)
-
-
-@app.route("/delete_module/<module_id>")
-def delete_module(module_id):
-    """
-    Function that deletes a module from the database. This function
-    needs updating so all the questions assocciated with a module
-    are transferred to a different module when a module is deleted.
-    However the physics cirriculuum rarely changes so a moudle will
-    very rarely need deleting
-    """
-    mongo.db.modules.remove({"_id": ObjectId(module_id)})
-    flash("Module deleted successfully")
-    return redirect(url_for("manage_modules"))
-
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """

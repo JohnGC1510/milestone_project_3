@@ -1,4 +1,3 @@
-
 /*
 Defensive programming function that asks users to confirm in a modal
 before deleting a question
