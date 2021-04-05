@@ -1,5 +1,6 @@
-# PhysRev
-The PhysRev website is a tool aimed at helping GCSE physics students better prepare for their exams in and outside of a school environment.
+# Pass Physics
+![Am I responsive image](static/images/am_I_responsive.PNG)
+The Pass physics website is a tool aimed at helping GCSE physics students better prepare for their exams in and outside of a school environment.
 The website is intended to be used by both teaching staff and school pupils. The pupils will be able to answer exam questions on the many 
 modules in physics GCSE and receive immediate feedback on their attempts. The website will provide an ideal method and solution to the problem
 giving pupils the most efficient way to answer their problems. The site provides a class for the pupils to join (currently one of three) in
@@ -16,7 +17,8 @@ of their class. The questions mark themselves and will reduce the marking load f
 
 ### **Student Goals**
 - To give themselves the best chance of passing their physics GCSE by practicing questions
-- To compete against over students on a leaderboard
+- To compete against other students to encourage repeat visits
+- Promote the website by word of mouth with other students
 ### **Teacher Goals**
 - To have a resource that gives students constructive feedback when attempting exam questions
 - To have a resource that allows them to easily compare how their students are performing on exam questions
@@ -79,10 +81,47 @@ As a general user I want:
 ## Features
 ---
 ### **Existing Feautres**
+---
+#### Home Page
+- Advertises the site and provides easy access to sign in/login to the user areas. 
+#### Registration/Login
+- A user is able to create a student or teacher account and can choose to join one of 3 classes when they sign up. 
+- If the user has an account they are able to login
+#### Profile Page
+- Users will all have a unique profile page
+
+- A teachers users profile will enable them to add/edit questions for their class. Teachers are only able to edit and delete their own questions.
+
+![teacher profile picture](static/images/profile_teacher.png)
+
+- An admin users profile page is identical to the teacher profile page however they are the only user able to edit and delete other teacher users questions. 
+
+- A students profile displays some statics on how the student is perfoming.
+
+![student profile picture](static/images/profile_student.png)
+Jeff has completed all the electricity questions, 50%  of the radioactivity questions, a third of the energy questions and none of the particles questions. He can tell his current working grade and a pie chart represents his current performance. 
+
+#### CRUD functionallity
+- Teacher users can add, edit and delete questions there own questions
+- When deleting questions from database defensive programming practices are implemented. 
+
+![demonstration of defensive programming](static/images/defensive_programming.png)
+
+- Additionally admin users can add, edit and delete modules.
+
+#### Questions page
+- Teacher and admin users are simply able to view the quesitons left by all users and search through the questions using a search bar. 
+
+- The questions page for students allows them to answer the questions, they can attempt an individual question as many times as they wish until they get the correcr answer. Students can search for specific questions to answer.
+
+![student questions view](static/images/student_questions.png)
+
+- The student view either provides the question and answer form to compelte, a question and method and a answer form to complete or a question, method and solution to the question. The dispaly changes based on whether a student has attempted a question, answered it incorrectly or answered it correctly. An example of all 3 views can be seen in the top 3 questions in the above screenshot.
+### **Features left to implement** 
 
 ### **Differences from wireframes**
 
-### **Features left to implement** 
+
 
 ## **Data Structure**
 ---
