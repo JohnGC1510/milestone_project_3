@@ -158,15 +158,15 @@ Jeff has completed all the electricity questions, 50%  of the radioactivity ques
 
 - As more questions are added to the database it would be useful to add pagination to the questions and modules page. 
 
-- The classes page is bare bones for both the student and the teacher. In the student class page I would like to improve the database to track the number of questions answered per week and add a feature for 'star of the week' as well as changing the leaderboard so that the user is dispayed even if they are not in the top 10.
+- The classes page has very few feautres for both the student and the teacher. In the student class page I would like to improve the database to track the number of questions answered per week and add a feature for 'star of the week' as well as changing the leader board so that the user is displayed even if they are not in the top 10.
 
 - It would be useful if students were able to answer multiple questions at once, I would like to make changes to my database to enable this to be possible.
 
 - I would like to change how feedback is given when a user answers a question incorrectly, quite often there are common wrong answers to a question, if a user enters a common wrong answer I would like to provide a specific hint to help with that misconception which would involve adding an array of incorrect answers and methods to the database. 
 
-- The class system is basic as you need to choose a class when you sign up, it would be useful to implement some class control for teachers so that they are able to add classes and add and remove student users from thier class as appropriate. 
+- The class system is basic as you need to choose a class when you sign up, it would be useful to implement some class control for teachers so that they are able to add classes and add and remove student users from their class as appropriate. 
 
-- Implement the CRUD functionallity for modules correclty as deleting and editing modules currently have a detrimental impact on the project.
+- Implement the CRUD functionality for modules correctly as deleting and editing modules currently have a detrimental impact on the project.
 
 
 ## **Data Structure**
@@ -181,15 +181,15 @@ The main changes in the final version fo the database is to the students collect
 
 Student users should be able to answer a question and if they get it incorret then a method should be displayed, if they get it correct then both the method and correct answer should be displayed. 
 
-This was very diffiuclt to acheive with my intial database hence I changed to using 3 arrays, questions_unaswered is filled upon account creation with all question_ids from questions currently in the database and the other two arrays are initialised empty. question_ids are moved from questions_unanswered to either question_correct and questions_incorrect depending on the users response. This then allowed me a way to change what the user saw depending on the answer given.
+This was very difficult to achieve with my initial database hence I changed to using 3 arrays, questions_unaswered is filled upon account creation with all question_ids from questions currently in the database and the other two arrays are initialised empty. question_ids are moved from questions_unanswered to either question_correct and questions_incorrect depending on the users response. This then allowed me a way to change what the user saw depending on the answer given.
 
-The first_name and surname were added to the class section to allow for easier sorting of the students in the class section, however upon reflection this addition to the database was not required and can be removed as the duplication of this data is completly uneeded. 
+The first_name and surname were added to the class section to allow for easier sorting of the students in the class section, however upon reflection this addition to the database was not required and can be removed as the duplication of this data is completely unneeded. 
 ![Database-relationships](static/images/final_db_relationships.PNG)
 ### Current Issues with database
 The current database has 3 main issues:
 1. Duplicated data - I have duplicated username, first_name and surname in the users and students collections to allow for easier coding at points. I have duplicated class in users, teachers and students, class only needs to be in one of these collections.  
-2. Uneeded collections and data - As the class collection in teacher is duplicated the teacher collection is actually not required. The percentage_correct and current_grade information does not need to be stored in the collection as it can always be dynamically generated from questions_answered and questions_correct.
-3. Student questions solution unideal - This soltuion lead to a complicated series of for loops and if statements in the all-questions section to allow me to display content as desired, re-writing the database could greatly simplfiy the all_quiestions.html. 
+2. Unneeded collections and data - As the class collection in teacher is duplicated the teacher collection is actually not required. The percentage_correct and current_grade information does not need to be stored in the collection as it can always be dynamically generated from questions_answered and questions_correct.
+3. Student questions solution unideal - This solution lead to a complicated series of for loops and if statements in the all-questions section to allow me to display content as desired, re-writing the database could greatly simplify the all_quiestions.html file.
 ### Future Improvements to Database
 1.	Duplicated data - To fix this issue I would remove first_name, surname and username from the students collection. I would also remove class from both the teachers and students collection. This would mean needing to change pages where student names are accessed from the student collection and adjusting my sorting function.
 2.	Unneeded collections and data - I would entirely remove the teachers collection. Additionally I would remove the current_grade and percentage_correct values from the student. The values are already generated inside the program and can just be calculated when they are required as this uses much less memory than a database request.
@@ -219,7 +219,7 @@ This project used the languages Python, HTML5, javascript and CSS3.
 ---
 The project was hosted on Github and deployed through heroku. 
 
-### Requriements to deploy the project are a:
+### Requirements to deploy the project are a:
 - Python 3 developing environment
 - Github account
 - MongoDB account
@@ -232,7 +232,7 @@ The project was hosted on Github and deployed through heroku.
 - Click "Open with GitHub Desktop" and follow the instructions in the GitHub desktop application. Other ways to clone a repository can be found [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-to-github-desktop) 
 
 ### Step 2 - Working with local clone
--  To work with the local clone you need to ensure all enviromental variables have been set in an env.py file. These variables are private so ensure that you have a .gitignore file that prevents your env.py file being pushed to github. An example of a env.py file can be seen below:
+-  To work with the local clone you need to ensure all environmental variables have been set in an env.py file. These variables are private so ensure that you have a .gitignore file that prevents your env.py file being pushed to github. An example of a env.py file can be seen below:
 ```
 import os
 os.environ.setdefault("IP", "0.0.0.0")
@@ -289,7 +289,7 @@ Once you have connected your GitHub repository:
         1. Select the branch you wish to deploy (master is default)
         2. Click the "Deploy Branch" button. (This may take some time as Heroku uploads the app to their servers.) 
 
-- Once the build is complete, a "View App" button will appear and you should be informed that the app has succesfully deployed.
+- Once the build is complete, a "View App" button will appear and you should be informed that the app has successfully deployed.
 
 - Common issues include outdated requirements.txt and/or missing Procfile, if errors occur, check these are both correct before investigating further 
 
