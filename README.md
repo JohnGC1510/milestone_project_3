@@ -58,6 +58,22 @@ As a general user I want:
 2. The site to be intuitive to use and navigate around
 3. I want to easily be able to sign up to/login to the site. 
 ### **Design Choices**
+#### **Font**
+ I used Raleway for the headings and lato for the body. Raleway looked elegant and lato was clearly spaced and easy to read and the two fonts complemented each other well. 
+
+#### **Icons**
+I used Font Awesome icons for my social media links as it gives a intuitive way for users to access the sites social media. I also used Font Awesome icons to make my search bar more intuitive to use. 
+
+#### **Colors**
+The color scheme was light grey - blue. Blue and grey are two colours that complement each other well and are not overpowering. The light grey was based ont the logo and the blue from the hero image. The hero image was darkend considerably to allow for the call-to-action text to be clearly dispalyed. Hence the blues you find throughout the rest of the site are considerbaly lighter than the blue seen on the hero image. 
+
+When choosing colours on the students profile page I went with the tradional red, amber, green colours to indicate progress to make it intuitively clear.
+
+#### **User Pages**
+When designing the user pages I tried to keep the pages simplisitc to allow maximum ease of use to encourage users to return more regulalry. The site is more about it's functionallity than it's design. 
+
+#### **Hero Image**
+I wanted the hero image to fit the theme of the site and believe it does lead you to think about STEM education and primarily physics and mathematics. The call to action button clearly encourages you to sign up and experience the site yourself. 
 
 ### **Wireframes**
 ### Home Page
@@ -117,10 +133,32 @@ Jeff has completed all the electricity questions, 50%  of the radioactivity ques
 ![student questions view](static/images/student_questions.png)
 
 - The student view either provides the question and answer form to compelte, a question and method and a answer form to complete or a question, method and solution to the question. The dispaly changes based on whether a student has attempted a question, answered it incorrectly or answered it correctly. An example of all 3 views can be seen in the top 3 questions in the above screenshot.
+
+#### Class Page
+
+- The class page allows student users to compare there progress to other students and provides a competetive element to the site to try enocurage student users to return and attempt more questions. A student user is placed and highlighted in a top-ten leader board in the class. 
+
+![student class view](static/images/student_class.png)
+
+- The teacher class page allows the teacher to track how the the full class is performing by providing data on each student. The studnets are arranged into alphabetical order by surname to match register order in a class.
+
+![teacher class view](static/images/class_teacher.png)
+
+#### Modules Page
+
+- The modules page is similar to the questions page, students are able to answer the questions and teachers are able to view the questions. The modules page requires an additional filtering option which would be useful a studnet user wanted to revise a specific module or a teacher wanted to know the questions available for a specific module. 
+
 ### **Features left to implement** 
 
-### **Differences from wireframes**
+- As more questions are added to the database it would be useful to add pagination to the questions and modules page. 
 
+- The classes page is bare bones for both the student and the teacher. In the student class page I would like to improve the database to track the number of questions answered per week and add a feature for 'star of the week' as well as changing the leaderboard so that the user is dispayed even if they are not in the top 10.
+
+- It would be useful if students were able to answer multiple questions at once, I would like to make changes to my database to enable this to be possible.
+
+- I would like to change how feedback is given when a user answers a question incorrectly, quite often there are common wrong answers to a question, if a user enters a common wrong answer I would like to provide a specific hint to help with that misconception which would involve adding an array of incorrect answers and methods to the database. 
+
+- The class system is basic as you need to choose a class when you sign up, it would be useful to implement some class control for teachers so that they are able to add classes and add and remove student users from thier class as appropriate. 
 
 
 ## **Data Structure**
