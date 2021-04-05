@@ -301,7 +301,7 @@ Once you have connected your GitHub repository:
 
 
 ### **Code**
-- A solution to push the footer to the bottom of the page to make the site was found to [here](https://dev.to/domysee/keeping-the-footer-at-the-bottom-with-css-flexbox-5h5f)
+- A solution to push the footer to the bottom of the page to make the site was found [here](https://dev.to/domysee/keeping-the-footer-at-the-bottom-with-css-flexbox-5h5f)
 
 
 ### **Acknowledgements**
