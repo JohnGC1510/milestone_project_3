@@ -74,17 +74,19 @@ Testing was performed manually for the full site.
 - Editing modules is not correctly refelcted in the modules page - the edit modules function requires updating so that when a module is edited all of the questions are looped through and the module name is updated in each question. The student progress bars are also not dynamically created so editing a module will also require you to update the profile fuction appropriately. 
 - Editing moudles also removes the 'total_questions' integer from the collection, causing the site to break due to a key error, this clearly has been very poorly implemented hence the option to edit modules has been removed. 
 - Deleting a module has not been well implemented and badly effects the sites functionallity, due to this I have removed the option to delete a module as it will very rarely be necessary as the physics GCSE modules have not changed in years. However if deleting a module was to be implemented I would need to ensure any questions associtated with that module would also be deleted as well as the progress bars and any associtated data. 
+- It is important to note only admin users were able to edit and delete modukes so removing these 2 features will have very little impact on a day to day user of the site however they would be vital for long term site maintanence. 
 
 ### Error Pages
 - The 404 error page has been tested and functions correctly 
 - The 500 error page has been tested and functions correctly
 
 ## **Performance**
-
+---
 ## **Code Validation**
+---
 
 ### HTML
-
+- All pages would fail HTML validation using the [HTML W3 validator](https://validator.w3.org/nu/#textarea) due to errors caused by Jinja Templating langauge. No errors or warnings occur other than those caused by use of Jinja Templating
 
 ### CSS
 
@@ -93,11 +95,11 @@ Testing was performed manually for the full site.
 ### JavaScript
 
 
-## PEP8
-
+### PEP8
+- The python code file is fully PEP8 compliant and passed the [PEP8 online](http://pep8online.com/) validation.
 
 ## Compatibility
-
+---
 ### Hardware
 
 
@@ -105,7 +107,7 @@ Testing was performed manually for the full site.
 
 
 ## User Stories
-
+---
 ### Student User
 1. As a student I want to easily be able to locate the questions I would like to practice 
 
@@ -160,6 +162,7 @@ Achieved, icons change colour if they are hyperlinks, nav bar is clearly labelle
 Achieved, clear navigation bar and sign up button make it easy to find and the form is structured clearly with clear instructions for the requirements of each part of the form that needs completing.
 
 ## Known Bugs
+---
 - Editing modules does not update the modules in the questions collection causing errors to occur. 
 - Editing modules removes the total_questions data from that modules collection breaking the site
 - Deleting a module causes a key error breaking the site as all other associated data values are not deleted. 

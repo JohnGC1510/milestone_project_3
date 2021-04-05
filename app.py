@@ -25,7 +25,8 @@ mongo = PyMongo(app)
 
 def calc_working_grade(score):
     """
-    Calculates the current students working grade from their percentage of questions answered correctly
+    Calculates the current students working grade from
+    their percentage of questions answered correctly
     """
     if score >= 90:
         current_grade = 9
@@ -536,6 +537,8 @@ def add_module():
 def edit_module(module_id):
     """
     Function that edits a module and it's values in the database
+    this function needs updating if it is to be used without
+    causing the site to crash
     """
     if "user" not in session:
         return render_template("not_user.html")
@@ -627,7 +630,7 @@ def register():
                 "class": request.form.get("class")
             }
             mongo.db.teachers.insert_one(teacher)
- 
+
         # put new user into session cookie
         session["user"] = request.form.get("username").lower()
         return redirect(url_for("profile", user=session["user"]))

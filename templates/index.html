@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 	<div class="hero-container">
-		<img src="{{ url_for('static', filename='images/hero.jpg') }}" id="hero-img"/>
+		<img alt="hero image related to education" src="{{ url_for('static', filename='images/hero.jpg') }}" id="hero-img"/>
 		<div class="hero-text text-center">
             <p class="d-none d-md-block">Struggling with GCSE physics? Sign Up to Pass Physics today to drastically improve your chances of getting the grade you deserve!</p>
             <p class="d-sm-block d-md-none small-hero">
@@ -19,7 +19,7 @@
 	<div class="container benefits-container">
         <div class="row text-center benefits-item">
 			<div class="col-sm-12 col-md-5 benefits-img">
-				<img src="{{ url_for('static', filename='images/studying.jpg') }}">
+				<img alt="student studying" src="{{ url_for('static', filename='images/studying.jpg') }}">
 		    </div>
 			<div class="col-sm-12 col-md-7 benefits-txt">
 				<h4>Student Benefits</h4>
@@ -32,7 +32,7 @@
 					<p>A teacher with a class on pass physics will have access to a large set of revison questions for homework, tools to monitor how your class is performing, as well as the ability to add your own questions to our database to better suit your class!</p>
 				</div>
 				<div class="col-sm-12 col-md-5 benefits-img">
-					<img src="{{ url_for('static', filename='images/teaching.jpg') }}">
+					<img alt="tutor teaching" src="{{ url_for('static', filename='images/teaching.jpg') }}">
 		        </div>
 			</div>
     </div>
@@ -43,7 +43,7 @@
     	<div class="container testimonial-container">
         <div class="row text-center testimonial-item">
 			<div class="col-sm-12 col-md-5 testimonial-img">
-				<img src="{{ url_for('static', filename='images/brian-cox.jpg') }}">
+				<img alt="Teacher who had success with Pass Physics" src="{{ url_for('static', filename='images/brian-cox.jpg') }}">
 		    </div>
 			<div class="col-sm-12 col-md-7 testimonial-txt">
 				<h4>Brian Cox</h4>
@@ -56,7 +56,7 @@
 					<p>"I really enjoyed using Pass Physics and it definetly helped me get the A I wanted! I was able to compete agaisnt my friends to be the top fo the class leaderboard and this encourage dme to keep coming back to try more questions"</p>
 				</div>
 				<div class="col-sm-12 col-md-5 testimonial-img">
-					<img src="{{ url_for('static', filename='images/student.jpg') }}">
+					<img alt="Student who had success with pass physics" src="{{ url_for('static', filename='images/student.jpg') }}">
 		        </div>
 			</div>
     </div>

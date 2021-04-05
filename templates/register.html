@@ -1,107 +1,155 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container-fluid form-content">
-    <div class="register-form-container">
-<h2 class="text-center"> Sign Up </h2>
-<div class="row"> 
-    <form class="col-sm-12 offset-md-2 col-md-8 offset-lg-4 col-lg-4 needs-validation" method="POST" action="{{ url_for('register') }}" novalidate>
+  <div class="register-form-container">
+    <h2 class="text-center">Sign Up</h2>
+    <div class="row">
+      <form
+        class="col-sm-12 offset-md-2 col-md-8 offset-lg-4 col-lg-4 needs-validation"
+        method="POST"
+        action="{{ url_for('register') }}"
+        novalidate
+      >
         <div class="form-row register-item">
-            <div class="col-12">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" pattern="^[a-zA-Z0-9]{5,15}$"
-                 minlength="5" maxlength="15" class="form-control" required>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">5 Characters minimum, no special characters</div> 
+          <div class="col-12">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              pattern="^[a-zA-Z0-9]{5,15}$"
+              minlength="5"
+              maxlength="15"
+              class="form-control"
+              required
+            />
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">
+              5 Characters minimum, no special characters
             </div>
+          </div>
         </div>
         <div class="form-row register-item">
-            <div class="col-12">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9]{5,15}$"
-                 minlength="5" maxlength="15" class="form-control" required> 
-                <div class="valid-feedback">Valid</div>
-                <div class="invalid-feedback">5 Characters minimum, no special characters</div>
+          <div class="col-12">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              pattern="^[a-zA-Z0-9]{5,15}$"
+              minlength="5"
+              maxlength="15"
+              class="form-control"
+              required
+            />
+            <div class="valid-feedback">Valid</div>
+            <div class="invalid-feedback">
+              5 Characters minimum, no special characters
             </div>
+          </div>
         </div>
         <div class="form-row register-item">
-            <div class="col-sm-2 col-md-4">
-                <label for="title">Title</label>
-                <select id="title" name="title" class="form-control" required>
-                    <option value="" disabled selected>Choose...</option>
-                    <option value="Mr">Mr</option>
-                    <option value="Ms">Ms</option>
-                    <option value="Miss">Miss</option>
-                     <option value="Mrs">Mrs</option>
-                </select>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Please choose a title</div>
+          <div class="col-sm-2 col-md-4">
+            <label for="title">Title</label>
+            <select id="title" name="title" class="form-control" required>
+              <option value="" disabled selected>Choose...</option>
+              <option value="Mr">Mr</option>
+              <option value="Ms">Ms</option>
+              <option value="Miss">Miss</option>
+              <option value="Mrs">Mrs</option>
+            </select>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please choose a title</div>
+          </div>
+          <div class="col-sm-10 col-md-8">
+            <label for="first_name">First Name</label>
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              pattern="^[a-zA-Z]{3,15}$"
+              minlength="2"
+              maxlength="15"
+              class="form-control"
+              required
+            />
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">
+              3 Characters minimum, no special characters
             </div>
-            <div class="col-sm-10 col-md-8">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" pattern="^[a-zA-Z]{3,15}$"
-                 minlength="2" maxlength="15" class="form-control" required>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">3 Characters minimum, no special characters</div> 
-            </div>
+          </div>
         </div>
         <div class="form-row register-item">
-            <div class="col-sm-12">
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" name="surname" pattern="^[a-zA-Z]{3,15}$"
-                 minlength="2" maxlength="15" class="form-control" required>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">3 Characters minimum, no special characters</div> 
+          <div class="col-sm-12">
+            <label for="surname">Surname</label>
+            <input
+              type="text"
+              id="surname"
+              name="surname"
+              pattern="^[a-zA-Z]{3,15}$"
+              minlength="2"
+              maxlength="15"
+              class="form-control"
+              required
+            />
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">
+              3 Characters minimum, no special characters
             </div>
+          </div>
         </div>
         <div class="form-row register-item">
-            <div class="col-sm-6">
-                <label for="user_type">User</label>
-                <select id="user_type" name="user_type" class="form-control" required>
-                    <option value ="" disabled selected>Student/Teacher</option>
-                    <option value="student">Student</option>
-                    <option value="teacher">Teacher</option>
-                </select>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Please choose an option</div>
-            </div>
-            <div class="col-sm-6">
-                 <label for="class">Class</label>
-                <select id="class" name="class" class="form-control" required>
-                    <option value="" disabled selected>Choose...</option>
-                    <option value="alpha">Alpha</option>
-                    <option value="beta">Beta</option>
-                    <option value="gamma">Gamma</option> 
-                </select>
-                <div class="valid-feedback"></div>
-                <div class="invalid-feedback">Please choose an option</div>
-            </div>
+          <div class="col-sm-6">
+            <label for="user_type">User</label>
+            <select
+              id="user_type"
+              name="user_type"
+              class="form-control"
+              required
+            >
+              <option value="" disabled selected>Student/Teacher</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+            </select>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please choose an option</div>
+          </div>
+          <div class="col-sm-6">
+            <label for="class">Class</label>
+            <select id="class" name="class" class="form-control" required>
+              <option value="" disabled selected>Choose...</option>
+              <option value="alpha">Alpha</option>
+              <option value="beta">Beta</option>
+              <option value="gamma">Gamma</option>
+            </select>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Please choose an option</div>
+          </div>
         </div>
         <div class="form-row register-item">
-            <div class="col-sm-12">
-            <button type="submit" class="btn btn-primary register-btn">Sign Up</button>
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary register-btn">
+              Sign Up
+            </button>
+          </div>
         </div>
+      </form>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        <p>
+          If you have an account please
+          <a class="login-link" href="{{ url_for('login') }}">log in here</a>
+        </p>
+      </div>
+    </div>
   </div>
-</form>
 </div>
-<div class="row">
-            <div class="col-12 text-center">
-            <p>
-                If you have an account please <a class="login-link" href="{{ url_for('login') }}">log in here</a>
-            </p>
-            </div>
-        </div>
+<!--flash messages-->
+{% with messages = get_flashed_messages() %} {% if messages %} {% for message in
+messages %}
+<div class="row flash-login">
+  <div class="text-center col-sm-12 offset-md-2 col-md-8">
+    <h4>{{ message }}</h4>
+  </div>
 </div>
-</div>
- <!--flash messages-->
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="row flash-login">
-                        <div class=" text-center col-sm-12 offset-md-2 col-md-8">
-                        <h4>{{ message }}</h4>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-{% endblock %}
+{% endfor %} {% endif %} {% endwith %} {% endblock %}
