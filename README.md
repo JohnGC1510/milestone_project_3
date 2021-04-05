@@ -108,6 +108,9 @@ I wanted the hero image to fit the theme of the site and believe it does lead yo
 #### Registration/Login
 - A user is able to create a student or teacher account and can choose to join one of 3 classes when they sign up. 
 - If the user has an account they are able to login
+- Passwords are hashed to ensure they are kept private.
+- If a guest users attempts to access an area of the site that requires you to be logged in they will be redirected to a page that encourages them to sign uor log in.
+- If a student user attempts to access teacher/admin areas of the site then they will be redirected to a page that informs them they do not have the correct premissions to access this page and given a link to their profile page.
 #### Profile Page
 - Users will all have a unique profile page
 
