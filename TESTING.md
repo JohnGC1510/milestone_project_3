@@ -27,34 +27,52 @@
     + [General User](#general-user)
   * [Known Bugs](#known-bugs)
 
+Testing was performed manually for the full site. 
 
-
-
-## Navigation
-
-### Home
-
+### **Navigation**
+---
+- All links have been tested for admin, studnet and teacher users and no broken links were discovered. 
+- If a student user attempts to access a part of the site they do not have premisssions for (adding questions etc.) they are re-directed to a page informing them off their lack of premisssions and offering navigation to thier profile page
+- If a guest users attempts to access the main parts of the website they are  re-dircted to a page that asks them to sign-up/login
+- Navigation bar displays correct items depending if the user is logged in or out 
+- Navigation bar displays the correct items depending on the type of user logged in
+---
+### **Index**
+- Page displays correclty and is only shown if the user is not logged into the site. 
 #### Login / Register
+- Login and register functionallity extensively tested, a bug was recently found where capatilized passwords were not accepted as I mistakenly applied .lower() to the password received from the login form. This has now been fixed. - Register form feedback has been tested for all fields and the correct feedback displays when a user fills in field incorrectly and then submits the form.  
 
+### **User Pages**
+---
 
-### User Pages
+#### Profile Pages
+-   The student profile page was tested to check that when a answers a question correctly or incorrectly the relevant values in the database are updated and the statistics shown to the user update with them. This is the case for all but the working grade displayed too the user, their is a bug that means that the user needs to refresh the browser after navigating to the profile page to show the updated value of the working grade. I currently have been unable to find a fix for this bug. 
 
+- The progress bars on the students profile page were tested by editing, adding and removing questions from specfic modules to check if progress bar filled and updated correctly. The progerss bars update correctly for all CRUD operations performed on questions. 
+ 
+ - The progress bars are not dynamically generated, so when a new moudule is added the progress bar needs to be manually added into the profile function which is highly inefficient however I have yet to be able to find a solution to dynamically generate the progress bars correctly. 
 
-#### Profile Page
+ - On the teacher and admins profile page adding, editing and deleting questions instantly adds/edits/deletes the displayed questions on the page and the database is correctly updated.
 
 #### Questions Page
 
+- Bug: My initial data structure made it difficult to present the question, question method or the solution based on if the student had not answered the question, had attempted it incorrectly or gotten the question correct as there was no unique way to determine if a student had answered a question. An initial change was adding an array to the students table storing the question_id of the questions the students had attempted. This appeared to work initially as when a question was answered the solution appeared and the rest of the questions remained unchanged, however this had its own bugs. Answers/unanswered questions/question methods displaying multiple times if answered incorrectly multiple times or multiple correct questions were answered as I was looping over the array of questions answered and over all questions without appropriate if conditions.  
 
-Bug – My initial data structure made it difficult to present the question, question method or the solution based on if the student had not answered the question, had attempted it incorrectly or gotten the question correct as there was no unique way to determine if a student had answered a question. An initial change was adding an array to the students table storing the question_id of the questions the students had attempted. This appeared to work initially as when a question was answered the solution appeared and the rest of the questions remained unchanged, however this had its own bugs. Answers/unanswered questions/question methods displaying multiple times if answered incorrectly multiple times or multiple correct questions were answered as I was looping over the array of questions answered and over all questions without appropriate if conditions.  
+- Solution - I removed the question_answered array from the student table and replaced this with 3 arrays questions_unanswered, questions_correct and questions_incorrect. When a student was initially created the i_d of all current questions in the database would be added to the questions_unanswered array and the questions_correct, questions_incorrect arrays were both initialised empty. Question ids are moved between the arrays based on how the student answers the question. This allowed me to create a set of if conditions that covered all possible circumstances of answers (all correct, all incorrect, some correct etc.) which meant no duplication of methods/answers as there was always 1 unique outcome for each if condition. This now functions as intended with students able to attempt questions multiple times and no duplicates of a question/method/answer ever appear.
 
-Solution - I removed the question_answered array from the student table and replaced this with 3 arrays questions_unanswered, questions_correct and questions_incorrect. When a student was initially created the i_d of all current questions in the database would be added to the questions_unanswered array and the questions_correct, questions_incorrect arrays were both initialised empty. Question ids are moved between the arrays based on how the student answers the question. This allowed me to create a set of if conditions that covered all possible circumstances of answers (all correct, all incorrect, some correct etc.) which meant no duplication of methods/answers as there was always 1 unique outcome for each if condition. This now functions as intended with students able to attempt questions multiple times and no duplicates of a question/method/answer ever appear.  
+- This page has been tested with multiple users answering all questions correctly,incorrectly and combinations of both and the information displayed to the user is correct. 
+
+- The database correctly updates depending if the user answers a question correctly or incorrectly.
 
 #### Class Page
-
+- The tables in the class page update correctly as new users are added for a teacher user.
+- The tables in the class page update correctly when a student user answers questions for both student and teacher users.
 #### Modules Page
-
-#### Admin Pages
-
+- As you click on the module button the appropriate questions appear based on the module filter
+- Editing/adding/deleting questions in the database is correctly reflected on the modules page
+- Adding modules is correctly reflected in the modules page. 
+- Editing modules is not correctly refelcted in the modules page - the edit modules function requires updating so that when a module is edited all of the questions are looped through and the module name is updated in each question. The student progress bars are also not dynamically created so editing a module will also require you to update the profile fuction appropriately. 
+- Deleting a module has not been well implemented and badly effects the sites functionallity, due to this I have removed the option to delete a module as it will very rarely be necessary as the physics GCSE modules have not changed in years. However if deleting a module was to be implemented I would need to ensure any questions associtated with that module would also be deleted as well as the progress bars and any associtated data. 
 
 ### Error Pages
 

@@ -10,6 +10,11 @@ The teaching staff have the ability to add their own questions to the database f
 there pupils should have more of a focus on. The teachers will also have access to the class area where they are able to view the current progress
 of their class. The questions mark themselves and will reduce the marking load for teachers as well as providing statistical feedback on how pupils are preforming.
 
+## **Live project**
+---
+[View the live version of the project here](https://pass-physics.herokuapp.com/)
+
+---
 ### **Business and Developer Goals**
 - To assist GCSE physics students in obtaining the best possible exam results. 
 - To promote PhyRev so that more schools sign up to our website increasing business revenue
@@ -190,13 +195,17 @@ The current database has 3 main issues:
 
 ## Technologies Used
 ---
-This project used the languages Python (alongisde Jinjia tempalting), HTML5, javascript and CSS3.
-
+This project used the languages Python, HTML5, javascript and CSS3.
+- [Flask](https://flask.palletsprojects.com/en/1.1.x/) - The main framework used to build the project
+- [Jinja Templating language](https://jinja.palletsprojects.com/en/2.11.x/) was used to allow for python logic within the html files
+- [MongoDB](https://www.mongodb.com/) - the noSQL database used for the project
 - [jQuery](https://jquery.com/) - The jQuery library was used on all pages.
 - [GitPod](https://gitpod.io/workspaces/) - The entire website was developed in GitPod
 - [GitHub](https://github.com/) - GitHub was used to store the project and to deploy it using the master branch on the github site
+- [Heroku](https://www.heroku.com/) - Heroku was used to host the project
 - [Bootstrap](https://getbootstrap.com/) - The grid structure was used to structure the website and make it responsive and some default items in bootstrap were used as a starting point.
 - [FontAwesome](https://fontawesome.com/) - Font Awesome was used for various icons throughout the side.
+- [Google Fonts](https://fonts.google.com/) - The fonts I used were provided by Google Font
 
 ## Testing
 ---
@@ -284,11 +293,13 @@ Once you have connected your GitHub repository:
 
 ## Credits
 ---
+
+- [Dbdiagram](https://dbdiagram.io/home) was used to create my entity-relationship diagrams.
+
+
 ### **Code**
+- A solution to push the footer to the bottom of the page to make the site was found to [here](https://dev.to/domysee/keeping-the-footer-at-the-bottom-with-css-flexbox-5h5f)
 
-### **Media**
-
-### **Infomration**
 
 ### **Acknowledgements**
 - My mentor Ignatius for his fantastic support and assistance.
